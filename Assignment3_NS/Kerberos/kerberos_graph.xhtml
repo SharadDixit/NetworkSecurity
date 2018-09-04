@@ -1,0 +1,1509 @@
+<?xml version="1.0"?>
+<!-- CPSA 3.4.1 -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <title>kerberos</title>
+ <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
+ <style>
+  svg.diagram { border-width: 1px; border-style: solid }
+ </style>
+</head>
+<body>
+
+<pre>(comment &quot;CPSA 3.4.1&quot;)
+(comment &quot;All input read from Assignment.scm&quot;)</pre>
+
+<p id="top">Trees: <a href="#t0">0</a> <a href="#t2">2</a> <a href="#t4">4</a> <a href="#t6">6</a> <a href="#t8">8</a> <a href="#t11">11</a> <a href="#t13">13</a> <a href="#t16">16</a>.</p>
+
+<p id="t0">Tree <a href="#top">0</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='129.840pt' height='79.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 129.840 79.920' font-size='12.000'>
+  <text
+   x='89.880' y='26.040'
+   style='font-weight: bold; text-anchor: middle; fill: blue;'
+   onclick='window.open(&quot;#k1&quot;, &quot;_self&quot;)'>1</text>
+  <line
+   x1='39.960' y1='39.960' x2='89.880' y2='39.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <text
+   x='39.960' y='26.040' style='text-anchor: middle; fill: black;'
+   onclick='window.open(&quot;#k0&quot;, &quot;_self&quot;)'>0</text>
+  </svg></div>
+
+<pre>(defprotocol kerberos basic
+  (defrole client
+    (vars (c as t name) (k ak skey) (n1 n2 crtc crtas tgt data)
+      (tc tas text))
+    (trace (send (cat crtc c t (enc tc n2 (privk c)) n1))
+      (recv
+        (cat c tgt (enc crtas (enc k n2 (privk as)) (pubk c))
+          (enc t ak tas n1 k)))))
+  (defrole kas_as
+    (vars (c as t name) (k ak skey) (n1 n2 crtc crtas tgt data)
+      (tc tas text))
+    (trace (recv (cat crtc c t (enc tc n2 (privk c)) n1))
+      (send
+        (cat c tgt (enc crtas (enc k n2 (privk as)) (pubk c))
+          (enc t ak tas n1 k))))))</pre>
+
+<p id="k0">Item <a href="#t0">0</a>, Child: <a href="#k1">1</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='79.920pt' height='229.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 79.920 229.920' font-size='12.000'>
+  <defs>
+   <marker
+    id='arrow' orient='auto' markerWidth='5' markerHeight='10' refX='5'
+    refY='5'>
+    <path
+     d='M 0 0 5 5 0 10'
+     style='stroke-width: 2; fill: none; stroke: black;'/></marker>
+   </defs>
+  <line
+   x1='39.960' y1='114.960' x2='39.960' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <g>
+   <title>(cat c tgt (enc crtas (enc k n2 (privk as)) (pubk c)) (enc t ak tas n1 k))</title>
+   <circle style='fill: red;' cx='39.960' cy='189.960' r='6.000'/></g>
+  <g><title>(cat crtc c t (enc tc n2 (privk c)) n1)</title>
+   <circle cx='39.960' cy='114.960' r='6.000'/></g>
+  <g>
+   <title>((tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc) (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))</title>
+   <text
+    x='39.960' y='77.460' style='text-anchor: middle;'>client</text></g>
+  <text
+   x='39.960' y='39.960' style='text-anchor: middle;'>kerberos 0</text>
+  </svg></div>
+
+<pre>(defskeleton kerberos
+  (vars (tc tas text) (n1 n2 crtc crtas tgt data) (c as t name)
+    (k ak skey))
+  (defstrand client 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))
+  (non-orig (privk c) (privk as))
+  (uniq-orig n1 n2)
+  (label 0)
+  (unrealized (0 1))
+  (origs (n1 (0 0)) (n2 (0 0)))
+  (comment &quot;1 in cohort - 1 not yet seen&quot;))</pre>
+
+<p id="k1">Item <a href="#t0">1</a>, Parent: <a href="#k0">0</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='179.880pt' height='229.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 179.880 229.920' font-size='12.000'>
+  <defs>
+   <marker
+    id='arrow' orient='auto' markerWidth='5' markerHeight='10' refX='5'
+    refY='5'>
+    <path
+     d='M 0 0 5 5 0 10'
+     style='stroke-width: 2; fill: none; stroke: black;'/></marker>
+   </defs>
+  <line
+   x1='139.920' y1='114.960' x2='139.920' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <line
+   x1='39.960' y1='114.960' x2='39.960' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <path
+   d='M 139.920 189.960 Q 92.940 189.960 45.960 189.960'
+   style='stroke-dasharray: 6.000,2.400; stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g>
+   <title>(cat c-0 tgt-0 (enc crtas-0 (enc k n2 (privk as)) (pubk c-0)) (enc t-0 ak-0 tas-0 n1-0 k))</title>
+   <circle cx='139.920' cy='189.960' r='6.000'/></g>
+  <g><title>(cat crtc-0 c-0 t-0 (enc tc-0 n2 (privk c-0)) n1-0)</title>
+   <circle style='fill: blue;' cx='139.920' cy='114.960' r='6.000'/></g>
+  <g>
+   <title>(cat c tgt (enc crtas (enc k n2 (privk as)) (pubk c)) (enc t ak tas n1 k))</title>
+   <circle style='fill: blue;' cx='39.960' cy='189.960' r='6.000'/></g>
+  <path
+   d='M 39.960 114.960 Q 86.940 114.960 133.920 114.960'
+   style='stroke-dasharray: 6.000,2.400; stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g><title>(cat crtc c t (enc tc n2 (privk c)) n1)</title>
+   <circle cx='39.960' cy='114.960' r='6.000'/></g>
+  <g>
+   <title>((tc tc-0) (tas tas-0) (n1 n1-0) (n2 n2) (crtc crtc-0) (crtas crtas-0) (tgt tgt-0) (c c-0) (as as) (t t-0) (k k) (ak ak-0))</title>
+   <text
+    x='139.920' y='77.460' style='text-anchor: middle;'>kas_as</text>
+   </g>
+  <g>
+   <title>((tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc) (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))</title>
+   <text
+    x='39.960' y='77.460' style='text-anchor: middle;'>client</text></g>
+  <text
+   x='89.940' y='39.960'
+   style='text-anchor: middle;'>kerberos 1 (realized)</text></svg></div>
+
+<pre>(defskeleton kerberos
+  (vars (tc tas tc-0 tas-0 text)
+    (n1 n2 crtc crtas tgt n1-0 crtc-0 crtas-0 tgt-0 data)
+    (c as t c-0 t-0 name) (k ak ak-0 skey))
+  (defstrand client 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))
+  (defstrand kas_as 2 (tc tc-0) (tas tas-0) (n1 n1-0) (n2 n2)
+    (crtc crtc-0) (crtas crtas-0) (tgt tgt-0) (c c-0) (as as) (t t-0)
+    (k k) (ak ak-0))
+  (precedes ((0 0) (1 0)) ((1 1) (0 1)))
+  (non-orig (privk c) (privk as))
+  (uniq-orig n1 n2)
+  (operation encryption-test (added-strand kas_as 2)
+    (enc k n2 (privk as)) (0 1))
+  (label 1)
+  (parent 0)
+  (unrealized)
+  (shape)
+  (maps
+    ((0)
+      ((c c) (as as) (t t) (k k) (ak ak) (n1 n1) (n2 n2) (crtc crtc)
+        (crtas crtas) (tgt tgt) (tc tc) (tas tas))))
+  (origs (n1 (0 0)) (n2 (0 0))))</pre>
+
+<p id="t2">Tree <a href="#top">2</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='129.840pt' height='79.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 129.840 79.920' font-size='12.000'>
+  <text
+   x='89.880' y='26.040'
+   style='font-weight: bold; text-anchor: middle; fill: blue;'
+   onclick='window.open(&quot;#k3&quot;, &quot;_self&quot;)'>3</text>
+  <line
+   x1='39.960' y1='39.960' x2='89.880' y2='39.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <text
+   x='39.960' y='26.040' style='text-anchor: middle; fill: black;'
+   onclick='window.open(&quot;#k2&quot;, &quot;_self&quot;)'>2</text>
+  </svg></div>
+
+<pre>(defprotocol kerberos basic
+  (defrole client
+    (vars (c as t name) (k ak skey) (n1 n2 crtc crtas tgt data)
+      (tc tas text))
+    (trace (send (cat crtc c t (enc tc n2 (privk c)) n1))
+      (recv
+        (cat c tgt (enc crtas (enc k n2 (privk as)) (pubk c))
+          (enc t ak tas n1 k)))))
+  (defrole kas_as
+    (vars (c as t name) (k ak skey) (n1 n2 crtc crtas tgt data)
+      (tc tas text))
+    (trace (recv (cat crtc c t (enc tc n2 (privk c)) n1))
+      (send
+        (cat c tgt (enc crtas (enc k n2 (privk as)) (pubk c))
+          (enc t ak tas n1 k))))))</pre>
+
+<p id="k2">Item <a href="#t2">2</a>, Child: <a href="#k3">3</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='79.920pt' height='229.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 79.920 229.920' font-size='12.000'>
+  <defs>
+   <marker
+    id='arrow' orient='auto' markerWidth='5' markerHeight='10' refX='5'
+    refY='5'>
+    <path
+     d='M 0 0 5 5 0 10'
+     style='stroke-width: 2; fill: none; stroke: black;'/></marker>
+   </defs>
+  <line
+   x1='39.960' y1='114.960' x2='39.960' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <g>
+   <title>(cat c tgt (enc crtas (enc k n2 (privk as)) (pubk c)) (enc t ak tas n1 k))</title>
+   <circle cx='39.960' cy='189.960' r='6.000'/></g>
+  <g><title>(cat crtc c t (enc tc n2 (privk c)) n1)</title>
+   <circle style='fill: red;' cx='39.960' cy='114.960' r='6.000'/></g>
+  <g>
+   <title>((tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc) (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))</title>
+   <text
+    x='39.960' y='77.460' style='text-anchor: middle;'>kas_as</text></g>
+  <text
+   x='39.960' y='39.960' style='text-anchor: middle;'>kerberos 2</text>
+  </svg></div>
+
+<pre>(defskeleton kerberos
+  (vars (tc tas text) (n1 n2 crtc crtas tgt data) (c as t name)
+    (k ak skey))
+  (defstrand kas_as 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))
+  (non-orig (privk c) (privk as))
+  (uniq-orig k ak)
+  (label 2)
+  (unrealized (0 0))
+  (origs (k (0 1)) (ak (0 1)))
+  (comment &quot;1 in cohort - 1 not yet seen&quot;))</pre>
+
+<p id="k3">Item <a href="#t2">3</a>, Parent: <a href="#k2">2</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='179.880pt' height='229.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 179.880 229.920' font-size='12.000'>
+  <defs>
+   <marker
+    id='arrow' orient='auto' markerWidth='5' markerHeight='10' refX='5'
+    refY='5'>
+    <path
+     d='M 0 0 5 5 0 10'
+     style='stroke-width: 2; fill: none; stroke: black;'/></marker>
+   </defs>
+  <line
+   x1='139.920' y1='114.960' x2='139.920' y2='114.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <line
+   x1='39.960' y1='114.960' x2='39.960' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <path
+   d='M 139.920 114.960 Q 92.940 114.960 45.960 114.960'
+   style='stroke-dasharray: 6.000,2.400; stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g><title>(cat crtc-0 c t-0 (enc tc n2 (privk c)) n1-0)</title>
+   <circle cx='139.920' cy='114.960' r='6.000'/></g>
+  <g>
+   <title>(cat c tgt (enc crtas (enc k n2 (privk as)) (pubk c)) (enc t ak tas n1 k))</title>
+   <circle cx='39.960' cy='189.960' r='6.000'/></g>
+  <g><title>(cat crtc c t (enc tc n2 (privk c)) n1)</title>
+   <circle style='fill: blue;' cx='39.960' cy='114.960' r='6.000'/></g>
+  <g>
+   <title>((tc tc) (n1 n1-0) (n2 n2) (crtc crtc-0) (c c) (t t-0))</title>
+   <text
+    x='139.920' y='77.460' style='text-anchor: middle;'>client</text>
+   </g>
+  <g>
+   <title>((tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc) (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))</title>
+   <text
+    x='39.960' y='77.460' style='text-anchor: middle;'>kas_as</text></g>
+  <text
+   x='89.940' y='39.960'
+   style='text-anchor: middle;'>kerberos 3 (realized)</text></svg></div>
+
+<pre>(defskeleton kerberos
+  (vars (tc tas text) (n1 n2 crtc crtas tgt n1-0 crtc-0 data)
+    (c as t t-0 name) (k ak skey))
+  (defstrand kas_as 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))
+  (defstrand client 1 (tc tc) (n1 n1-0) (n2 n2) (crtc crtc-0) (c c)
+    (t t-0))
+  (precedes ((1 0) (0 0)))
+  (non-orig (privk c) (privk as))
+  (uniq-orig k ak)
+  (operation encryption-test (added-strand client 1)
+    (enc tc n2 (privk c)) (0 0))
+  (label 3)
+  (parent 2)
+  (unrealized)
+  (shape)
+  (maps
+    ((0)
+      ((c c) (as as) (t t) (k k) (ak ak) (n1 n1) (n2 n2) (crtc crtc)
+        (crtas crtas) (tgt tgt) (tc tc) (tas tas))))
+  (origs (k (0 1)) (ak (0 1))))</pre>
+
+<p id="t4">Tree <a href="#top">4</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='129.840pt' height='79.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 129.840 79.920' font-size='12.000'>
+  <text
+   x='89.880' y='26.040'
+   style='font-weight: bold; text-anchor: middle; fill: blue;'
+   onclick='window.open(&quot;#k5&quot;, &quot;_self&quot;)'>5</text>
+  <line
+   x1='39.960' y1='39.960' x2='89.880' y2='39.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <text
+   x='39.960' y='26.040' style='text-anchor: middle; fill: black;'
+   onclick='window.open(&quot;#k4&quot;, &quot;_self&quot;)'>4</text>
+  </svg></div>
+
+<pre>(defprotocol kerberos basic
+  (defrole client
+    (vars (c as t name) (k ak skey) (n1 n2 crtc crtas tgt data)
+      (tc tas text))
+    (trace (send (cat crtc c t (enc tc n2 (privk c)) n1))
+      (recv
+        (cat c tgt (enc crtas (enc k n2 (privk as)) (pubk c))
+          (enc t ak tas n1 k)))))
+  (defrole kas_as
+    (vars (c as t name) (k ak skey) (n1 n2 crtc crtas tgt data)
+      (tc tas text))
+    (trace (recv (cat crtc c t (enc tc n2 (privk c)) n1))
+      (send
+        (cat c tgt (enc crtas (enc k n2 (privk as)) (pubk c))
+          (enc t ak tas n1 k))))))</pre>
+
+<p id="k4">Item <a href="#t4">4</a>, Child: <a href="#k5">5</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='179.880pt' height='229.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 179.880 229.920' font-size='12.000'>
+  <defs>
+   <marker
+    id='arrow' orient='auto' markerWidth='5' markerHeight='10' refX='5'
+    refY='5'>
+    <path
+     d='M 0 0 5 5 0 10'
+     style='stroke-width: 2; fill: none; stroke: black;'/></marker>
+   </defs>
+  <line
+   x1='139.920' y1='114.960' x2='139.920' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <line
+   x1='39.960' y1='114.960' x2='39.960' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <g><title>k</title><circle cx='139.920' cy='189.960' r='6.000'/></g>
+  <g><title>k</title>
+   <circle style='fill: blue;' cx='139.920' cy='114.960' r='6.000'/></g>
+  <g>
+   <title>(cat c tgt (enc crtas (enc k n2 (privk as)) (pubk c)) (enc t ak tas n1 k))</title>
+   <circle style='fill: red;' cx='39.960' cy='189.960' r='6.000'/></g>
+  <g><title>(cat crtc c t (enc tc n2 (privk c)) n1)</title>
+   <circle cx='39.960' cy='114.960' r='6.000'/></g>
+  <g>
+   <title>((tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc) (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))</title>
+   <text
+    x='39.960' y='77.460' style='text-anchor: middle;'>client</text></g>
+  <text
+   x='89.940' y='39.960' style='text-anchor: middle;'>kerberos 4</text>
+  </svg></div>
+
+<pre>(defskeleton kerberos
+  (vars (tc tas text) (n1 n2 crtc crtas tgt data) (c as t name)
+    (k ak skey))
+  (defstrand client 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))
+  (deflistener k)
+  (non-orig (privk c) (privk as))
+  (uniq-orig n1 n2)
+  (label 4)
+  (unrealized (0 1))
+  (origs (n1 (0 0)) (n2 (0 0)))
+  (comment &quot;1 in cohort - 1 not yet seen&quot;))</pre>
+
+<p id="k5">Item <a href="#t4">5</a>, Parent: <a href="#k4">4</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='279.840pt' height='229.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 279.840 229.920' font-size='12.000'>
+  <defs>
+   <marker
+    id='arrow' orient='auto' markerWidth='5' markerHeight='10' refX='5'
+    refY='5'>
+    <path
+     d='M 0 0 5 5 0 10'
+     style='stroke-width: 2; fill: none; stroke: black;'/></marker>
+   </defs>
+  <line
+   x1='239.880' y1='114.960' x2='239.880' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <line
+   x1='139.920' y1='114.960' x2='139.920' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <line
+   x1='39.960' y1='114.960' x2='39.960' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <path
+   d='M 239.880 189.960 Q 142.920 152.460 45.960 189.960'
+   style='stroke-dasharray: 6.000,2.400; stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g>
+   <title>(cat c-0 tgt-0 (enc crtas-0 (enc k n2 (privk as)) (pubk c-0)) (enc t-0 ak-0 tas-0 n1-0 k))</title>
+   <circle cx='239.880' cy='189.960' r='6.000'/></g>
+  <g><title>(cat crtc-0 c-0 t-0 (enc tc-0 n2 (privk c-0)) n1-0)</title>
+   <circle style='fill: blue;' cx='239.880' cy='114.960' r='6.000'/></g>
+  <g><title>k</title><circle cx='139.920' cy='189.960' r='6.000'/></g>
+  <g><title>k</title>
+   <circle style='fill: blue;' cx='139.920' cy='114.960' r='6.000'/></g>
+  <g>
+   <title>(cat c tgt (enc crtas (enc k n2 (privk as)) (pubk c)) (enc t ak tas n1 k))</title>
+   <circle style='fill: blue;' cx='39.960' cy='189.960' r='6.000'/></g>
+  <path
+   d='M 39.960 114.960 Q 136.920 77.460 233.880 114.960'
+   style='stroke-dasharray: 6.000,2.400; stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g><title>(cat crtc c t (enc tc n2 (privk c)) n1)</title>
+   <circle cx='39.960' cy='114.960' r='6.000'/></g>
+  <g>
+   <title>((tc tc-0) (tas tas-0) (n1 n1-0) (n2 n2) (crtc crtc-0) (crtas crtas-0) (tgt tgt-0) (c c-0) (as as) (t t-0) (k k) (ak ak-0))</title>
+   <text
+    x='239.880' y='77.460' style='text-anchor: middle;'>kas_as</text>
+   </g>
+  <g>
+   <title>((tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc) (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))</title>
+   <text
+    x='39.960' y='77.460' style='text-anchor: middle;'>client</text></g>
+  <text
+   x='139.920' y='39.960'
+   style='text-anchor: middle;'>kerberos 5 (realized)</text></svg></div>
+
+<pre>(defskeleton kerberos
+  (vars (tc tas tc-0 tas-0 text)
+    (n1 n2 crtc crtas tgt n1-0 crtc-0 crtas-0 tgt-0 data)
+    (c as t c-0 t-0 name) (k ak ak-0 skey))
+  (defstrand client 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))
+  (deflistener k)
+  (defstrand kas_as 2 (tc tc-0) (tas tas-0) (n1 n1-0) (n2 n2)
+    (crtc crtc-0) (crtas crtas-0) (tgt tgt-0) (c c-0) (as as) (t t-0)
+    (k k) (ak ak-0))
+  (precedes ((0 0) (2 0)) ((2 1) (0 1)))
+  (non-orig (privk c) (privk as))
+  (uniq-orig n1 n2)
+  (operation encryption-test (added-strand kas_as 2)
+    (enc k n2 (privk as)) (0 1))
+  (label 5)
+  (parent 4)
+  (unrealized)
+  (shape)
+  (maps
+    ((0 1)
+      ((c c) (as as) (t t) (k k) (ak ak) (n1 n1) (n2 n2) (crtc crtc)
+        (crtas crtas) (tgt tgt) (tc tc) (tas tas))))
+  (origs (n1 (0 0)) (n2 (0 0))))</pre>
+
+<p id="t6">Tree <a href="#top">6</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='129.840pt' height='79.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 129.840 79.920' font-size='12.000'>
+  <text
+   x='89.880' y='26.040'
+   style='font-weight: bold; text-anchor: middle; fill: blue;'
+   onclick='window.open(&quot;#k7&quot;, &quot;_self&quot;)'>7</text>
+  <line
+   x1='39.960' y1='39.960' x2='89.880' y2='39.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <text
+   x='39.960' y='26.040' style='text-anchor: middle; fill: black;'
+   onclick='window.open(&quot;#k6&quot;, &quot;_self&quot;)'>6</text>
+  </svg></div>
+
+<pre>(defprotocol kerberos basic
+  (defrole client
+    (vars (c as t name) (k ak skey) (n1 n2 crtc crtas tgt data)
+      (tc tas text))
+    (trace (send (cat crtc c t (enc tc n2 (privk c)) n1))
+      (recv
+        (cat c tgt (enc crtas (enc k n2 (privk as)) (pubk c))
+          (enc t ak tas n1 k)))))
+  (defrole kas_as
+    (vars (c as t name) (k ak skey) (n1 n2 crtc crtas tgt data)
+      (tc tas text))
+    (trace (recv (cat crtc c t (enc tc n2 (privk c)) n1))
+      (send
+        (cat c tgt (enc crtas (enc k n2 (privk as)) (pubk c))
+          (enc t ak tas n1 k))))))</pre>
+
+<p id="k6">Item <a href="#t6">6</a>, Child: <a href="#k7">7</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='179.880pt' height='229.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 179.880 229.920' font-size='12.000'>
+  <defs>
+   <marker
+    id='arrow' orient='auto' markerWidth='5' markerHeight='10' refX='5'
+    refY='5'>
+    <path
+     d='M 0 0 5 5 0 10'
+     style='stroke-width: 2; fill: none; stroke: black;'/></marker>
+   </defs>
+  <line
+   x1='139.920' y1='114.960' x2='139.920' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <line
+   x1='39.960' y1='114.960' x2='39.960' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <g>
+   <title>(cat c-0 tgt (enc crtas (enc k n2 (privk as)) (pubk c-0)) (enc t ak tas n1 k))</title>
+   <circle cx='139.920' cy='189.960' r='6.000'/></g>
+  <g><title>(cat crtc c-0 t (enc tc n2 (privk c-0)) n1)</title>
+   <circle style='fill: red;' cx='139.920' cy='114.960' r='6.000'/></g>
+  <g>
+   <title>(cat c tgt (enc crtas (enc k n2 (privk as)) (pubk c)) (enc t ak-0 tas n1 k))</title>
+   <circle style='fill: red;' cx='39.960' cy='189.960' r='6.000'/></g>
+  <g><title>(cat crtc c t (enc tc n2 (privk c)) n1)</title>
+   <circle cx='39.960' cy='114.960' r='6.000'/></g>
+  <g>
+   <title>((tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc) (crtas crtas) (tgt tgt) (c c-0) (as as) (t t) (k k) (ak ak))</title>
+   <text
+    x='139.920' y='77.460' style='text-anchor: middle;'>kas_as</text>
+   </g>
+  <g>
+   <title>((tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc) (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak-0))</title>
+   <text
+    x='39.960' y='77.460' style='text-anchor: middle;'>client</text></g>
+  <text
+   x='89.940' y='39.960' style='text-anchor: middle;'>kerberos 6</text>
+  </svg></div>
+
+<pre>(defskeleton kerberos
+  (vars (tc tas text) (n1 n2 crtc crtas tgt data) (c as t c-0 name)
+    (k ak ak-0 skey))
+  (defstrand client 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak-0))
+  (defstrand kas_as 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c-0) (as as) (t t) (k k) (ak ak))
+  (non-orig (privk as))
+  (uniq-orig n1 n2 k ak)
+  (label 6)
+  (unrealized (0 1) (1 0))
+  (preskeleton)
+  (comment &quot;Not a skeleton&quot;))</pre>
+
+<p id="k7">Item <a href="#t6">7</a>, Parent: <a href="#k6">6</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='179.880pt' height='229.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 179.880 229.920' font-size='12.000'>
+  <defs>
+   <marker
+    id='arrow' orient='auto' markerWidth='5' markerHeight='10' refX='5'
+    refY='5'>
+    <path
+     d='M 0 0 5 5 0 10'
+     style='stroke-width: 2; fill: none; stroke: black;'/></marker>
+   </defs>
+  <line
+   x1='139.920' y1='114.960' x2='139.920' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <line
+   x1='39.960' y1='114.960' x2='39.960' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <path
+   d='M 139.920 189.960 Q 92.940 189.960 45.960 189.960'
+   style='stroke-dasharray: 6.000,2.400; stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g>
+   <title>(cat c-0 tgt (enc crtas (enc k n2 (privk as)) (pubk c-0)) (enc t ak tas n1 k))</title>
+   <circle cx='139.920' cy='189.960' r='6.000'/></g>
+  <g><title>(cat crtc c-0 t (enc tc n2 (privk c-0)) n1)</title>
+   <circle style='fill: blue;' cx='139.920' cy='114.960' r='6.000'/></g>
+  <g>
+   <title>(cat c tgt (enc crtas (enc k n2 (privk as)) (pubk c)) (enc t ak-0 tas n1 k))</title>
+   <circle style='fill: blue;' cx='39.960' cy='189.960' r='6.000'/></g>
+  <path
+   d='M 39.960 114.960 Q 86.940 114.960 133.920 114.960'
+   style='stroke-dasharray: 6.000,2.400; stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g><title>(cat crtc c t (enc tc n2 (privk c)) n1)</title>
+   <circle cx='39.960' cy='114.960' r='6.000'/></g>
+  <g>
+   <title>((tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc) (crtas crtas) (tgt tgt) (c c-0) (as as) (t t) (k k) (ak ak))</title>
+   <text
+    x='139.920' y='77.460' style='text-anchor: middle;'>kas_as</text>
+   </g>
+  <g>
+   <title>((tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc) (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak-0))</title>
+   <text
+    x='39.960' y='77.460' style='text-anchor: middle;'>client</text></g>
+  <text
+   x='89.940' y='39.960'
+   style='text-anchor: middle;'>kerberos 7 (realized)</text></svg></div>
+
+<pre>(defskeleton kerberos
+  (vars (tc tas text) (n1 n2 crtc crtas tgt data) (c as t c-0 name)
+    (k ak ak-0 skey))
+  (defstrand client 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak-0))
+  (defstrand kas_as 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c-0) (as as) (t t) (k k) (ak ak))
+  (precedes ((0 0) (1 0)) ((1 1) (0 1)))
+  (non-orig (privk as))
+  (uniq-orig n1 n2 k ak)
+  (label 7)
+  (parent 6)
+  (unrealized)
+  (shape)
+  (maps
+    ((0 1)
+      ((c c) (as as) (t t) (k k) (ak ak) (n1 n1) (n2 n2) (crtc crtc)
+        (crtas crtas) (tgt tgt) (tc tc) (tas tas) (ak-0 ak-0)
+        (c-0 c-0))))
+  (origs (k (1 1)) (ak (1 1)) (n1 (0 0)) (n2 (0 0))))</pre>
+
+<p id="t8">Tree <a href="#top">8</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='179.760pt' height='79.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 179.760 79.920' font-size='12.000'>
+  <text
+   x='139.800' y='26.040'
+   style='font-weight: bold; text-anchor: middle; fill: blue;'
+   onclick='window.open(&quot;#k10&quot;, &quot;_self&quot;)'>10</text>
+  <line
+   x1='89.880' y1='39.960' x2='139.800' y2='39.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <text
+   x='89.880' y='26.040' style='text-anchor: middle; fill: black;'
+   onclick='window.open(&quot;#k9&quot;, &quot;_self&quot;)'>9</text>
+  <line
+   x1='39.960' y1='39.960' x2='89.880' y2='39.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <text
+   x='39.960' y='26.040' style='text-anchor: middle; fill: black;'
+   onclick='window.open(&quot;#k8&quot;, &quot;_self&quot;)'>8</text>
+  </svg></div>
+
+<pre>(defprotocol kerberos_corrected basic
+  (defrole client
+    (vars (c as t name) (k ak skey) (n1 n2 crtc crtas tgt data)
+      (tc tas text))
+    (trace (send (cat c (enc crtc t as tc n2 n1 (privk c))))
+      (recv
+        (enc
+          (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as))
+          (pubk c)))))
+  (defrole kas_as
+    (vars (c as t name) (k ak skey) (n1 n2 crtc crtas tgt data)
+      (tc tas text))
+    (trace (recv (cat c (enc crtc t as tc n2 n1 (privk c))))
+      (send
+        (enc
+          (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as))
+          (pubk c))))
+    (uniq-orig k)))</pre>
+
+<p id="k8">Item <a href="#t8">8</a>, Child: <a href="#k9">9</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='79.920pt' height='229.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 79.920 229.920' font-size='12.000'>
+  <defs>
+   <marker
+    id='arrow' orient='auto' markerWidth='5' markerHeight='10' refX='5'
+    refY='5'>
+    <path
+     d='M 0 0 5 5 0 10'
+     style='stroke-width: 2; fill: none; stroke: black;'/></marker>
+   </defs>
+  <line
+   x1='39.960' y1='114.960' x2='39.960' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <g>
+   <title>(enc (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as)) (pubk c))</title>
+   <circle style='fill: red;' cx='39.960' cy='189.960' r='6.000'/></g>
+  <g><title>(cat c (enc crtc t as tc n2 n1 (privk c)))</title>
+   <circle cx='39.960' cy='114.960' r='6.000'/></g>
+  <g>
+   <title>((tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc) (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))</title>
+   <text
+    x='39.960' y='77.460' style='text-anchor: middle;'>client</text></g>
+  <text
+   x='39.960' y='39.960'
+   style='text-anchor: middle;'>kerberos_corrected 8</text></svg></div>
+
+<pre>(defskeleton kerberos_corrected
+  (vars (tc tas text) (n1 n2 crtc crtas tgt data) (c as t name)
+    (k ak skey))
+  (defstrand client 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))
+  (non-orig (privk c) (privk as))
+  (uniq-orig n1 n2)
+  (label 8)
+  (unrealized (0 1))
+  (origs (n1 (0 0)) (n2 (0 0)))
+  (comment &quot;1 in cohort - 1 not yet seen&quot;))</pre>
+
+<p id="k9">Item <a href="#t8">9</a>, Parent: <a href="#k8">8</a>, Child: <a href="#k10">10</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='179.880pt' height='229.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 179.880 229.920' font-size='12.000'>
+  <defs>
+   <marker
+    id='arrow' orient='auto' markerWidth='5' markerHeight='10' refX='5'
+    refY='5'>
+    <path
+     d='M 0 0 5 5 0 10'
+     style='stroke-width: 2; fill: none; stroke: black;'/></marker>
+   </defs>
+  <line
+   x1='139.920' y1='114.960' x2='139.920' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <line
+   x1='39.960' y1='114.960' x2='39.960' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <path
+   d='M 139.920 189.960 Q 92.940 189.960 45.960 189.960'
+   style='stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g>
+   <title>(enc (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as)) (pubk c))</title>
+   <circle cx='139.920' cy='189.960' r='6.000'/></g>
+  <g><title>(cat c (enc crtc t as tc-0 n2 n1 (privk c)))</title>
+   <circle style='fill: red;' cx='139.920' cy='114.960' r='6.000'/></g>
+  <g>
+   <title>(enc (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as)) (pubk c))</title>
+   <circle style='fill: blue;' cx='39.960' cy='189.960' r='6.000'/></g>
+  <path
+   d='M 39.960 114.960 Q 86.940 114.960 133.920 114.960'
+   style='stroke-dasharray: 6.000,2.400; stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g><title>(cat c (enc crtc t as tc n2 n1 (privk c)))</title>
+   <circle cx='39.960' cy='114.960' r='6.000'/></g>
+  <g>
+   <title>((tc tc-0) (tas tas) (n1 n1) (n2 n2) (crtc crtc) (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))</title>
+   <text
+    x='139.920' y='77.460' style='text-anchor: middle;'>kas_as</text>
+   </g>
+  <g>
+   <title>((tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc) (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))</title>
+   <text
+    x='39.960' y='77.460' style='text-anchor: middle;'>client</text></g>
+  <text
+   x='89.940' y='39.960'
+   style='text-anchor: middle;'>kerberos_corrected 9</text></svg></div>
+
+<pre>(defskeleton kerberos_corrected
+  (vars (tc tas tc-0 text) (n1 n2 crtc crtas tgt data) (c as t name)
+    (k ak skey))
+  (defstrand client 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))
+  (defstrand kas_as 2 (tc tc-0) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))
+  (precedes ((0 0) (1 0)) ((1 1) (0 1)))
+  (non-orig (privk c) (privk as))
+  (uniq-orig n1 n2 k)
+  (operation encryption-test (added-strand kas_as 2)
+    (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as)) (0 1))
+  (label 9)
+  (parent 8)
+  (unrealized (1 0))
+  (comment &quot;1 in cohort - 1 not yet seen&quot;))</pre>
+
+<p id="k10">Item <a href="#t8">10</a>, Parent: <a href="#k9">9</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='179.880pt' height='229.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 179.880 229.920' font-size='12.000'>
+  <defs>
+   <marker
+    id='arrow' orient='auto' markerWidth='5' markerHeight='10' refX='5'
+    refY='5'>
+    <path
+     d='M 0 0 5 5 0 10'
+     style='stroke-width: 2; fill: none; stroke: black;'/></marker>
+   </defs>
+  <line
+   x1='139.920' y1='114.960' x2='139.920' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <line
+   x1='39.960' y1='114.960' x2='39.960' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <path
+   d='M 139.920 189.960 Q 92.940 189.960 45.960 189.960'
+   style='stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g>
+   <title>(enc (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as)) (pubk c))</title>
+   <circle cx='139.920' cy='189.960' r='6.000'/></g>
+  <g><title>(cat c (enc crtc t as tc n2 n1 (privk c)))</title>
+   <circle style='fill: blue;' cx='139.920' cy='114.960' r='6.000'/></g>
+  <g>
+   <title>(enc (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as)) (pubk c))</title>
+   <circle style='fill: blue;' cx='39.960' cy='189.960' r='6.000'/></g>
+  <path
+   d='M 39.960 114.960 Q 86.940 114.960 133.920 114.960'
+   style='stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g><title>(cat c (enc crtc t as tc n2 n1 (privk c)))</title>
+   <circle cx='39.960' cy='114.960' r='6.000'/></g>
+  <g>
+   <title>((tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc) (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))</title>
+   <text
+    x='139.920' y='77.460' style='text-anchor: middle;'>kas_as</text>
+   </g>
+  <g>
+   <title>((tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc) (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))</title>
+   <text
+    x='39.960' y='77.460' style='text-anchor: middle;'>client</text></g>
+  <text
+   x='89.940' y='39.960'
+   style='text-anchor: middle;'>kerberos_corrected 10 (realized)</text>
+  </svg></div>
+
+<pre>(defskeleton kerberos_corrected
+  (vars (tc tas text) (n1 n2 crtc crtas tgt data) (c as t name)
+    (k ak skey))
+  (defstrand client 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))
+  (defstrand kas_as 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))
+  (precedes ((0 0) (1 0)) ((1 1) (0 1)))
+  (non-orig (privk c) (privk as))
+  (uniq-orig n1 n2 k)
+  (operation encryption-test (displaced 2 0 client 1)
+    (enc crtc t as tc-0 n2 n1 (privk c)) (1 0))
+  (label 10)
+  (parent 9)
+  (unrealized)
+  (shape)
+  (maps
+    ((0)
+      ((c c) (as as) (t t) (k k) (ak ak) (n1 n1) (n2 n2) (crtc crtc)
+        (crtas crtas) (tgt tgt) (tc tc) (tas tas))))
+  (origs (k (1 1)) (n1 (0 0)) (n2 (0 0))))</pre>
+
+<p id="t11">Tree <a href="#top">11</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='129.840pt' height='79.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 129.840 79.920' font-size='12.000'>
+  <text
+   x='89.880' y='26.040'
+   style='font-weight: bold; text-anchor: middle; fill: blue;'
+   onclick='window.open(&quot;#k12&quot;, &quot;_self&quot;)'>12</text>
+  <line
+   x1='39.960' y1='39.960' x2='89.880' y2='39.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <text
+   x='39.960' y='26.040' style='text-anchor: middle; fill: black;'
+   onclick='window.open(&quot;#k11&quot;, &quot;_self&quot;)'>11</text>
+  </svg></div>
+
+<pre>(defprotocol kerberos_corrected basic
+  (defrole client
+    (vars (c as t name) (k ak skey) (n1 n2 crtc crtas tgt data)
+      (tc tas text))
+    (trace (send (cat c (enc crtc t as tc n2 n1 (privk c))))
+      (recv
+        (enc
+          (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as))
+          (pubk c)))))
+  (defrole kas_as
+    (vars (c as t name) (k ak skey) (n1 n2 crtc crtas tgt data)
+      (tc tas text))
+    (trace (recv (cat c (enc crtc t as tc n2 n1 (privk c))))
+      (send
+        (enc
+          (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as))
+          (pubk c))))
+    (uniq-orig k)))</pre>
+
+<p id="k11">Item <a href="#t11">11</a>, Child: <a href="#k12">12</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='79.920pt' height='229.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 79.920 229.920' font-size='12.000'>
+  <defs>
+   <marker
+    id='arrow' orient='auto' markerWidth='5' markerHeight='10' refX='5'
+    refY='5'>
+    <path
+     d='M 0 0 5 5 0 10'
+     style='stroke-width: 2; fill: none; stroke: black;'/></marker>
+   </defs>
+  <line
+   x1='39.960' y1='114.960' x2='39.960' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <g>
+   <title>(enc (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as)) (pubk c))</title>
+   <circle cx='39.960' cy='189.960' r='6.000'/></g>
+  <g><title>(cat c (enc crtc t as tc n2 n1 (privk c)))</title>
+   <circle style='fill: red;' cx='39.960' cy='114.960' r='6.000'/></g>
+  <g>
+   <title>((tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc) (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))</title>
+   <text
+    x='39.960' y='77.460' style='text-anchor: middle;'>kas_as</text></g>
+  <text
+   x='39.960' y='39.960'
+   style='text-anchor: middle;'>kerberos_corrected 11</text></svg></div>
+
+<pre>(defskeleton kerberos_corrected
+  (vars (tc tas text) (n1 n2 crtc crtas tgt data) (c as t name)
+    (k ak skey))
+  (defstrand kas_as 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))
+  (non-orig (privk c) (privk as))
+  (uniq-orig k ak)
+  (label 11)
+  (unrealized (0 0))
+  (origs (k (0 1)) (ak (0 1)))
+  (comment &quot;1 in cohort - 1 not yet seen&quot;))</pre>
+
+<p id="k12">Item <a href="#t11">12</a>, Parent: <a href="#k11">11</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='179.880pt' height='229.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 179.880 229.920' font-size='12.000'>
+  <defs>
+   <marker
+    id='arrow' orient='auto' markerWidth='5' markerHeight='10' refX='5'
+    refY='5'>
+    <path
+     d='M 0 0 5 5 0 10'
+     style='stroke-width: 2; fill: none; stroke: black;'/></marker>
+   </defs>
+  <line
+   x1='139.920' y1='114.960' x2='139.920' y2='114.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <line
+   x1='39.960' y1='114.960' x2='39.960' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <path
+   d='M 139.920 114.960 Q 92.940 114.960 45.960 114.960'
+   style='stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g><title>(cat c (enc crtc t as tc n2 n1 (privk c)))</title>
+   <circle cx='139.920' cy='114.960' r='6.000'/></g>
+  <g>
+   <title>(enc (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as)) (pubk c))</title>
+   <circle cx='39.960' cy='189.960' r='6.000'/></g>
+  <g><title>(cat c (enc crtc t as tc n2 n1 (privk c)))</title>
+   <circle style='fill: blue;' cx='39.960' cy='114.960' r='6.000'/></g>
+  <g>
+   <title>((tc tc) (n1 n1) (n2 n2) (crtc crtc) (c c) (as as) (t t))</title>
+   <text
+    x='139.920' y='77.460' style='text-anchor: middle;'>client</text>
+   </g>
+  <g>
+   <title>((tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc) (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))</title>
+   <text
+    x='39.960' y='77.460' style='text-anchor: middle;'>kas_as</text></g>
+  <text
+   x='89.940' y='39.960'
+   style='text-anchor: middle;'>kerberos_corrected 12 (realized)</text>
+  </svg></div>
+
+<pre>(defskeleton kerberos_corrected
+  (vars (tc tas text) (n1 n2 crtc crtas tgt data) (c as t name)
+    (k ak skey))
+  (defstrand kas_as 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))
+  (defstrand client 1 (tc tc) (n1 n1) (n2 n2) (crtc crtc) (c c) (as as)
+    (t t))
+  (precedes ((1 0) (0 0)))
+  (non-orig (privk c) (privk as))
+  (uniq-orig k ak)
+  (operation encryption-test (added-strand client 1)
+    (enc crtc t as tc n2 n1 (privk c)) (0 0))
+  (label 12)
+  (parent 11)
+  (unrealized)
+  (shape)
+  (maps
+    ((0)
+      ((c c) (as as) (t t) (k k) (ak ak) (n1 n1) (n2 n2) (crtc crtc)
+        (crtas crtas) (tgt tgt) (tc tc) (tas tas))))
+  (origs (k (0 1)) (ak (0 1))))</pre>
+
+<p id="t13">Tree <a href="#top">13</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='179.760pt' height='79.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 179.760 79.920' font-size='12.000'>
+  <text
+   x='139.800' y='26.040' style='text-anchor: middle; fill: red;'
+   onclick='window.open(&quot;#k15&quot;, &quot;_self&quot;)'>15</text>
+  <line
+   x1='89.880' y1='39.960' x2='139.800' y2='39.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <text
+   x='89.880' y='26.040' style='text-anchor: middle; fill: red;'
+   onclick='window.open(&quot;#k14&quot;, &quot;_self&quot;)'>14</text>
+  <line
+   x1='39.960' y1='39.960' x2='89.880' y2='39.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <text
+   x='39.960' y='26.040' style='text-anchor: middle; fill: red;'
+   onclick='window.open(&quot;#k13&quot;, &quot;_self&quot;)'>13</text>
+  </svg></div>
+
+<pre>(defprotocol kerberos_corrected basic
+  (defrole client
+    (vars (c as t name) (k ak skey) (n1 n2 crtc crtas tgt data)
+      (tc tas text))
+    (trace (send (cat c (enc crtc t as tc n2 n1 (privk c))))
+      (recv
+        (enc
+          (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as))
+          (pubk c)))))
+  (defrole kas_as
+    (vars (c as t name) (k ak skey) (n1 n2 crtc crtas tgt data)
+      (tc tas text))
+    (trace (recv (cat c (enc crtc t as tc n2 n1 (privk c))))
+      (send
+        (enc
+          (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as))
+          (pubk c))))
+    (uniq-orig k)))</pre>
+
+<p id="k13">Item <a href="#t13">13</a>, Child: <a href="#k14">14</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='179.880pt' height='229.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 179.880 229.920' font-size='12.000'>
+  <defs>
+   <marker
+    id='arrow' orient='auto' markerWidth='5' markerHeight='10' refX='5'
+    refY='5'>
+    <path
+     d='M 0 0 5 5 0 10'
+     style='stroke-width: 2; fill: none; stroke: black;'/></marker>
+   </defs>
+  <line
+   x1='139.920' y1='114.960' x2='139.920' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <line
+   x1='39.960' y1='114.960' x2='39.960' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <g><title>k</title><circle cx='139.920' cy='189.960' r='6.000'/></g>
+  <g><title>k</title>
+   <circle style='fill: blue;' cx='139.920' cy='114.960' r='6.000'/></g>
+  <g>
+   <title>(enc (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as)) (pubk c))</title>
+   <circle style='fill: red;' cx='39.960' cy='189.960' r='6.000'/></g>
+  <g><title>(cat c (enc crtc t as tc n2 n1 (privk c)))</title>
+   <circle cx='39.960' cy='114.960' r='6.000'/></g>
+  <g>
+   <title>((tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc) (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))</title>
+   <text
+    x='39.960' y='77.460' style='text-anchor: middle;'>client</text></g>
+  <text
+   x='89.940' y='39.960'
+   style='text-anchor: middle;'>kerberos_corrected 13</text></svg></div>
+
+<pre>(defskeleton kerberos_corrected
+  (vars (tc tas text) (n1 n2 crtc crtas tgt data) (c as t name)
+    (k ak skey))
+  (defstrand client 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))
+  (deflistener k)
+  (non-orig (privk c) (privk as))
+  (uniq-orig n1 n2)
+  (label 13)
+  (unrealized (0 1))
+  (origs (n1 (0 0)) (n2 (0 0)))
+  (comment &quot;1 in cohort - 1 not yet seen&quot;))</pre>
+
+<p id="k14">Item <a href="#t13">14</a>, Parent: <a href="#k13">13</a>, Child: <a href="#k15">15</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='279.840pt' height='304.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 279.840 304.920' font-size='12.000'>
+  <defs>
+   <marker
+    id='arrow' orient='auto' markerWidth='5' markerHeight='10' refX='5'
+    refY='5'>
+    <path
+     d='M 0 0 5 5 0 10'
+     style='stroke-width: 2; fill: none; stroke: black;'/></marker>
+   </defs>
+  <line
+   x1='239.880' y1='114.960' x2='239.880' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <line
+   x1='139.920' y1='189.960' x2='139.920' y2='264.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <line
+   x1='39.960' y1='114.960' x2='39.960' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <path
+   d='M 239.880 189.960 Q 142.920 152.460 45.960 189.960'
+   style='stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <path
+   d='M 239.880 189.960 Q 192.900 189.960 145.920 189.960'
+   style='stroke-dasharray: 6.000,2.400; stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g>
+   <title>(enc (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as)) (pubk c))</title>
+   <circle cx='239.880' cy='189.960' r='6.000'/></g>
+  <g><title>(cat c (enc crtc t as tc-0 n2 n1 (privk c)))</title>
+   <circle style='fill: red;' cx='239.880' cy='114.960' r='6.000'/></g>
+  <g><title>k</title><circle cx='139.920' cy='264.960' r='6.000'/></g>
+  <g><title>k</title>
+   <circle style='fill: red;' cx='139.920' cy='189.960' r='6.000'/></g>
+  <g>
+   <title>(enc (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as)) (pubk c))</title>
+   <circle style='fill: blue;' cx='39.960' cy='189.960' r='6.000'/></g>
+  <path
+   d='M 39.960 114.960 Q 136.920 77.460 233.880 114.960'
+   style='stroke-dasharray: 6.000,2.400; stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g><title>(cat c (enc crtc t as tc n2 n1 (privk c)))</title>
+   <circle cx='39.960' cy='114.960' r='6.000'/></g>
+  <g>
+   <title>((tc tc-0) (tas tas) (n1 n1) (n2 n2) (crtc crtc) (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))</title>
+   <text
+    x='239.880' y='77.460' style='text-anchor: middle;'>kas_as</text>
+   </g>
+  <g>
+   <title>((tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc) (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))</title>
+   <text
+    x='39.960' y='77.460' style='text-anchor: middle;'>client</text></g>
+  <text
+   x='139.920' y='39.960'
+   style='text-anchor: middle;'>kerberos_corrected 14</text></svg></div>
+
+<pre>(defskeleton kerberos_corrected
+  (vars (tc tas tc-0 text) (n1 n2 crtc crtas tgt data) (c as t name)
+    (k ak skey))
+  (defstrand client 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))
+  (deflistener k)
+  (defstrand kas_as 2 (tc tc-0) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))
+  (precedes ((0 0) (2 0)) ((2 1) (0 1)) ((2 1) (1 0)))
+  (non-orig (privk c) (privk as))
+  (uniq-orig n1 n2 k)
+  (operation encryption-test (added-strand kas_as 2)
+    (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as)) (0 1))
+  (label 14)
+  (parent 13)
+  (unrealized (1 0) (2 0))
+  (comment &quot;1 in cohort - 1 not yet seen&quot;))</pre>
+
+<p id="k15">Item <a href="#t13">15</a>, Parent: <a href="#k14">14</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='279.840pt' height='304.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 279.840 304.920' font-size='12.000'>
+  <defs>
+   <marker
+    id='arrow' orient='auto' markerWidth='5' markerHeight='10' refX='5'
+    refY='5'>
+    <path
+     d='M 0 0 5 5 0 10'
+     style='stroke-width: 2; fill: none; stroke: black;'/></marker>
+   </defs>
+  <line
+   x1='239.880' y1='114.960' x2='239.880' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <line
+   x1='139.920' y1='189.960' x2='139.920' y2='264.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <line
+   x1='39.960' y1='114.960' x2='39.960' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <path
+   d='M 239.880 189.960 Q 142.920 152.460 45.960 189.960'
+   style='stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <path
+   d='M 239.880 189.960 Q 192.900 189.960 145.920 189.960'
+   style='stroke-dasharray: 6.000,2.400; stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g>
+   <title>(enc (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as)) (pubk c))</title>
+   <circle cx='239.880' cy='189.960' r='6.000'/></g>
+  <g><title>(cat c (enc crtc t as tc n2 n1 (privk c)))</title>
+   <circle style='fill: blue;' cx='239.880' cy='114.960' r='6.000'/></g>
+  <g><title>k</title><circle cx='139.920' cy='264.960' r='6.000'/></g>
+  <g><title>k</title>
+   <circle style='fill: red;' cx='139.920' cy='189.960' r='6.000'/></g>
+  <g>
+   <title>(enc (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as)) (pubk c))</title>
+   <circle style='fill: blue;' cx='39.960' cy='189.960' r='6.000'/></g>
+  <path
+   d='M 39.960 114.960 Q 136.920 77.460 233.880 114.960'
+   style='stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g><title>(cat c (enc crtc t as tc n2 n1 (privk c)))</title>
+   <circle cx='39.960' cy='114.960' r='6.000'/></g>
+  <g>
+   <title>((tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc) (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))</title>
+   <text
+    x='239.880' y='77.460' style='text-anchor: middle;'>kas_as</text>
+   </g>
+  <g>
+   <title>((tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc) (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))</title>
+   <text
+    x='39.960' y='77.460' style='text-anchor: middle;'>client</text></g>
+  <text
+   x='139.920' y='39.960'
+   style='text-anchor: middle;'>kerberos_corrected 15</text></svg></div>
+
+<pre>(defskeleton kerberos_corrected
+  (vars (tc tas text) (n1 n2 crtc crtas tgt data) (c as t name)
+    (k ak skey))
+  (defstrand client 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))
+  (deflistener k)
+  (defstrand kas_as 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))
+  (precedes ((0 0) (2 0)) ((2 1) (0 1)) ((2 1) (1 0)))
+  (non-orig (privk c) (privk as))
+  (uniq-orig n1 n2 k)
+  (operation encryption-test (displaced 3 0 client 1)
+    (enc crtc t as tc-0 n2 n1 (privk c)) (2 0))
+  (label 15)
+  (parent 14)
+  (unrealized (1 0))
+  (comment &quot;empty cohort&quot;))</pre>
+
+<p id="t16">Tree <a href="#top">16</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='179.760pt' height='79.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 179.760 79.920' font-size='12.000'>
+  <text
+   x='139.800' y='26.040'
+   style='font-weight: bold; text-anchor: middle; fill: blue;'
+   onclick='window.open(&quot;#k18&quot;, &quot;_self&quot;)'>18</text>
+  <line
+   x1='89.880' y1='39.960' x2='139.800' y2='39.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <text
+   x='89.880' y='26.040' style='text-anchor: middle; fill: black;'
+   onclick='window.open(&quot;#k17&quot;, &quot;_self&quot;)'>17</text>
+  <line
+   x1='39.960' y1='39.960' x2='89.880' y2='39.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <text
+   x='39.960' y='26.040' style='text-anchor: middle; fill: black;'
+   onclick='window.open(&quot;#k16&quot;, &quot;_self&quot;)'>16</text>
+  </svg></div>
+
+<pre>(defprotocol kerberos_corrected basic
+  (defrole client
+    (vars (c as t name) (k ak skey) (n1 n2 crtc crtas tgt data)
+      (tc tas text))
+    (trace (send (cat c (enc crtc t as tc n2 n1 (privk c))))
+      (recv
+        (enc
+          (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as))
+          (pubk c)))))
+  (defrole kas_as
+    (vars (c as t name) (k ak skey) (n1 n2 crtc crtas tgt data)
+      (tc tas text))
+    (trace (recv (cat c (enc crtc t as tc n2 n1 (privk c))))
+      (send
+        (enc
+          (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as))
+          (pubk c))))
+    (uniq-orig k)))</pre>
+
+<p id="k16">Item <a href="#t16">16</a>, Child: <a href="#k17">17</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='179.880pt' height='229.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 179.880 229.920' font-size='12.000'>
+  <defs>
+   <marker
+    id='arrow' orient='auto' markerWidth='5' markerHeight='10' refX='5'
+    refY='5'>
+    <path
+     d='M 0 0 5 5 0 10'
+     style='stroke-width: 2; fill: none; stroke: black;'/></marker>
+   </defs>
+  <line
+   x1='139.920' y1='114.960' x2='139.920' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <line
+   x1='39.960' y1='114.960' x2='39.960' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <g>
+   <title>(enc (enc tgt crtas k c-0 crtc n1 n2 (enc t ak tas n1 k) (privk as)) (pubk c-0))</title>
+   <circle cx='139.920' cy='189.960' r='6.000'/></g>
+  <g><title>(cat c-0 (enc crtc t as tc n2 n1 (privk c-0)))</title>
+   <circle style='fill: red;' cx='139.920' cy='114.960' r='6.000'/></g>
+  <g>
+   <title>(enc (enc tgt crtas k c crtc n1 n2 (enc t ak-0 tas n1 k) (privk as)) (pubk c))</title>
+   <circle style='fill: red;' cx='39.960' cy='189.960' r='6.000'/></g>
+  <g><title>(cat c (enc crtc t as tc n2 n1 (privk c)))</title>
+   <circle cx='39.960' cy='114.960' r='6.000'/></g>
+  <g>
+   <title>((tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc) (crtas crtas) (tgt tgt) (c c-0) (as as) (t t) (k k) (ak ak))</title>
+   <text
+    x='139.920' y='77.460' style='text-anchor: middle;'>kas_as</text>
+   </g>
+  <g>
+   <title>((tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc) (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak-0))</title>
+   <text
+    x='39.960' y='77.460' style='text-anchor: middle;'>client</text></g>
+  <text
+   x='89.940' y='39.960'
+   style='text-anchor: middle;'>kerberos_corrected 16</text></svg></div>
+
+<pre>(defskeleton kerberos_corrected
+  (vars (tc tas text) (n1 n2 crtc crtas tgt data) (c as t c-0 name)
+    (k ak ak-0 skey))
+  (defstrand client 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak-0))
+  (defstrand kas_as 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c-0) (as as) (t t) (k k) (ak ak))
+  (non-orig (privk as))
+  (uniq-orig n1 n2 k ak)
+  (label 16)
+  (unrealized (0 1) (1 0))
+  (preskeleton)
+  (comment &quot;Not a skeleton&quot;))</pre>
+
+<p id="k17">Item <a href="#t16">17</a>, Parent: <a href="#k16">16</a>, Child: <a href="#k18">18</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='179.880pt' height='229.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 179.880 229.920' font-size='12.000'>
+  <defs>
+   <marker
+    id='arrow' orient='auto' markerWidth='5' markerHeight='10' refX='5'
+    refY='5'>
+    <path
+     d='M 0 0 5 5 0 10'
+     style='stroke-width: 2; fill: none; stroke: black;'/></marker>
+   </defs>
+  <line
+   x1='139.920' y1='114.960' x2='139.920' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <line
+   x1='39.960' y1='114.960' x2='39.960' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <path
+   d='M 139.920 189.960 Q 92.940 189.960 45.960 189.960'
+   style='stroke-dasharray: 6.000,2.400; stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g>
+   <title>(enc (enc tgt crtas k c-0 crtc n1 n2 (enc t ak tas n1 k) (privk as)) (pubk c-0))</title>
+   <circle cx='139.920' cy='189.960' r='6.000'/></g>
+  <g><title>(cat c-0 (enc crtc t as tc n2 n1 (privk c-0)))</title>
+   <circle style='fill: blue;' cx='139.920' cy='114.960' r='6.000'/></g>
+  <g>
+   <title>(enc (enc tgt crtas k c crtc n1 n2 (enc t ak-0 tas n1 k) (privk as)) (pubk c))</title>
+   <circle style='fill: red;' cx='39.960' cy='189.960' r='6.000'/></g>
+  <path
+   d='M 39.960 114.960 Q 86.940 114.960 133.920 114.960'
+   style='stroke-dasharray: 6.000,2.400; stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g><title>(cat c (enc crtc t as tc n2 n1 (privk c)))</title>
+   <circle cx='39.960' cy='114.960' r='6.000'/></g>
+  <g>
+   <title>((tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc) (crtas crtas) (tgt tgt) (c c-0) (as as) (t t) (k k) (ak ak))</title>
+   <text
+    x='139.920' y='77.460' style='text-anchor: middle;'>kas_as</text>
+   </g>
+  <g>
+   <title>((tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc) (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak-0))</title>
+   <text
+    x='39.960' y='77.460' style='text-anchor: middle;'>client</text></g>
+  <text
+   x='89.940' y='39.960'
+   style='text-anchor: middle;'>kerberos_corrected 17</text></svg></div>
+
+<pre>(defskeleton kerberos_corrected
+  (vars (tc tas text) (n1 n2 crtc crtas tgt data) (c as t c-0 name)
+    (k ak ak-0 skey))
+  (defstrand client 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak-0))
+  (defstrand kas_as 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c-0) (as as) (t t) (k k) (ak ak))
+  (precedes ((0 0) (1 0)) ((1 1) (0 1)))
+  (non-orig (privk as))
+  (uniq-orig n1 n2 k ak)
+  (label 17)
+  (parent 16)
+  (unrealized (0 1))
+  (origs (k (1 1)) (ak (1 1)) (n1 (0 0)) (n2 (0 0)))
+  (comment &quot;1 in cohort - 1 not yet seen&quot;))</pre>
+
+<p id="k18">Item <a href="#t16">18</a>, Parent: <a href="#k17">17</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='179.880pt' height='229.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 179.880 229.920' font-size='12.000'>
+  <defs>
+   <marker
+    id='arrow' orient='auto' markerWidth='5' markerHeight='10' refX='5'
+    refY='5'>
+    <path
+     d='M 0 0 5 5 0 10'
+     style='stroke-width: 2; fill: none; stroke: black;'/></marker>
+   </defs>
+  <line
+   x1='139.920' y1='114.960' x2='139.920' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <line
+   x1='39.960' y1='114.960' x2='39.960' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <path
+   d='M 139.920 189.960 Q 92.940 189.960 45.960 189.960'
+   style='stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g>
+   <title>(enc (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as)) (pubk c))</title>
+   <circle cx='139.920' cy='189.960' r='6.000'/></g>
+  <g><title>(cat c (enc crtc t as tc n2 n1 (privk c)))</title>
+   <circle style='fill: blue;' cx='139.920' cy='114.960' r='6.000'/></g>
+  <g>
+   <title>(enc (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as)) (pubk c))</title>
+   <circle style='fill: blue;' cx='39.960' cy='189.960' r='6.000'/></g>
+  <path
+   d='M 39.960 114.960 Q 86.940 114.960 133.920 114.960'
+   style='stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g><title>(cat c (enc crtc t as tc n2 n1 (privk c)))</title>
+   <circle cx='39.960' cy='114.960' r='6.000'/></g>
+  <g>
+   <title>((tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc) (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))</title>
+   <text
+    x='139.920' y='77.460' style='text-anchor: middle;'>kas_as</text>
+   </g>
+  <g>
+   <title>((tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc) (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))</title>
+   <text
+    x='39.960' y='77.460' style='text-anchor: middle;'>client</text></g>
+  <text
+   x='89.940' y='39.960'
+   style='text-anchor: middle;'>kerberos_corrected 18 (realized)</text>
+  </svg></div>
+
+<pre>(defskeleton kerberos_corrected
+  (vars (tc tas text) (n1 n2 crtc crtas tgt data) (as t c name)
+    (k ak skey))
+  (defstrand client 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))
+  (defstrand kas_as 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))
+  (precedes ((0 0) (1 0)) ((1 1) (0 1)))
+  (non-orig (privk as))
+  (uniq-orig n1 n2 k ak)
+  (operation encryption-test (displaced 2 1 kas_as 2)
+    (enc tgt crtas k c-0 crtc n1 n2 (enc t ak-0 tas n1 k) (privk as))
+    (0 1))
+  (label 18)
+  (parent 17)
+  (unrealized)
+  (shape)
+  (maps
+    ((0 1)
+      ((c c) (as as) (t t) (k k) (ak ak) (n1 n1) (n2 n2) (crtc crtc)
+        (crtas crtas) (tgt tgt) (tc tc) (tas tas) (ak-0 ak) (c-0 c))))
+  (origs (k (1 1)) (ak (1 1)) (n1 (0 0)) (n2 (0 0))))</pre>
+
+</body>
+</html>

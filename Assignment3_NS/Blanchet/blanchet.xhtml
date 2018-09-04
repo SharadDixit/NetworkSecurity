@@ -1,0 +1,1438 @@
+<?xml version="1.0"?>
+<!-- CPSA 3.4.1 -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <title>blanchet</title>
+ <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
+ <style>
+  svg.diagram { border-width: 1px; border-style: solid }
+ </style>
+</head>
+<body>
+
+<pre>(comment &quot;CPSA 3.4.1&quot;)
+(comment &quot;All input read from blanchet.scm&quot;)</pre>
+
+<p id="top">Trees: <a href="#t0">0</a> <a href="#t4">4</a> <a href="#t6">6</a> <a href="#t9">9</a> <a href="#t11">11</a> <a href="#t15">15</a> <a href="#t17">17</a> <a href="#t19">19</a>.</p>
+
+<p id="t0">Tree <a href="#top">0</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='179.760pt' height='154.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 179.760 154.920' font-size='12.000'>
+  <text
+   x='89.880' y='101.040' style='text-anchor: middle; fill: red;'
+   onclick='window.open(&quot;#k2&quot;, &quot;_self&quot;)'>2</text>
+  <line
+   x1='39.960' y1='77.460' x2='89.880' y2='114.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <text
+   x='139.800' y='26.040'
+   style='font-weight: bold; text-anchor: middle; fill: blue;'
+   onclick='window.open(&quot;#k3&quot;, &quot;_self&quot;)'>3</text>
+  <line
+   x1='89.880' y1='39.960' x2='139.800' y2='39.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <text
+   x='89.880' y='26.040' style='text-anchor: middle; fill: black;'
+   onclick='window.open(&quot;#k1&quot;, &quot;_self&quot;)'>1</text>
+  <line
+   x1='39.960' y1='77.460' x2='89.880' y2='39.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <text
+   x='39.960' y='63.540' style='text-anchor: middle; fill: black;'
+   onclick='window.open(&quot;#k0&quot;, &quot;_self&quot;)'>0</text>
+  </svg></div>
+
+<pre>(defprotocol blanchet basic
+  (defrole init
+    (vars (a b akey) (s skey) (d data))
+    (trace (send (enc (enc s (invk a)) b)) (recv (enc d s))))
+  (defrole resp
+    (vars (a b akey) (s skey) (d data))
+    (trace (recv (enc (enc s (invk a)) b)) (send (enc d s)))))</pre>
+
+<p id="k0">Item <a href="#t0">0</a>, Children: <a href="#k1">1</a> <a href="#k2">2</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='79.920pt' height='229.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 79.920 229.920' font-size='12.000'>
+  <defs>
+   <marker
+    id='arrow' orient='auto' markerWidth='5' markerHeight='10' refX='5'
+    refY='5'>
+    <path
+     d='M 0 0 5 5 0 10'
+     style='stroke-width: 2; fill: none; stroke: black;'/></marker>
+   </defs>
+  <line
+   x1='39.960' y1='114.960' x2='39.960' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <g><title>(enc d s)</title>
+   <circle style='fill: red;' cx='39.960' cy='189.960' r='6.000'/></g>
+  <g><title>(enc (enc s (invk a)) b)</title>
+   <circle cx='39.960' cy='114.960' r='6.000'/></g>
+  <g><title>((d d) (s s) (a a) (b b))</title>
+   <text x='39.960' y='77.460' style='text-anchor: middle;'>init</text>
+   </g>
+  <text
+   x='39.960' y='39.960' style='text-anchor: middle;'>blanchet 0</text>
+  </svg></div>
+
+<pre>(defskeleton blanchet
+  (vars (d data) (s skey) (a b akey))
+  (defstrand init 2 (d d) (s s) (a a) (b b))
+  (non-orig (invk a) (invk b))
+  (uniq-orig s)
+  (comment &quot;Analyze from the initiator&apos;s perspective&quot;)
+  (label 0)
+  (unrealized (0 1))
+  (origs (s (0 0)))
+  (comment &quot;2 in cohort - 2 not yet seen&quot;))</pre>
+
+<p id="k1">Item <a href="#t0">1</a>, Parent: <a href="#k0">0</a>, Child: <a href="#k3">3</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='179.880pt' height='229.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 179.880 229.920' font-size='12.000'>
+  <defs>
+   <marker
+    id='arrow' orient='auto' markerWidth='5' markerHeight='10' refX='5'
+    refY='5'>
+    <path
+     d='M 0 0 5 5 0 10'
+     style='stroke-width: 2; fill: none; stroke: black;'/></marker>
+   </defs>
+  <line
+   x1='139.920' y1='114.960' x2='139.920' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <line
+   x1='39.960' y1='114.960' x2='39.960' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <path
+   d='M 139.920 189.960 Q 92.940 189.960 45.960 189.960'
+   style='stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g><title>(enc d s)</title>
+   <circle cx='139.920' cy='189.960' r='6.000'/></g>
+  <g><title>(enc (enc s (invk a-0)) b-0)</title>
+   <circle style='fill: red;' cx='139.920' cy='114.960' r='6.000'/></g>
+  <g><title>(enc d s)</title>
+   <circle style='fill: blue;' cx='39.960' cy='189.960' r='6.000'/></g>
+  <path
+   d='M 39.960 114.960 Q 86.940 114.960 133.920 114.960'
+   style='stroke-dasharray: 6.000,2.400; stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g><title>(enc (enc s (invk a)) b)</title>
+   <circle cx='39.960' cy='114.960' r='6.000'/></g>
+  <g><title>((d d) (s s) (a a-0) (b b-0))</title>
+   <text x='139.920' y='77.460' style='text-anchor: middle;'>resp</text>
+   </g>
+  <g><title>((d d) (s s) (a a) (b b))</title>
+   <text x='39.960' y='77.460' style='text-anchor: middle;'>init</text>
+   </g>
+  <text
+   x='89.940' y='39.960' style='text-anchor: middle;'>blanchet 1</text>
+  </svg></div>
+
+<pre>(defskeleton blanchet
+  (vars (d data) (s skey) (a b a-0 b-0 akey))
+  (defstrand init 2 (d d) (s s) (a a) (b b))
+  (defstrand resp 2 (d d) (s s) (a a-0) (b b-0))
+  (precedes ((0 0) (1 0)) ((1 1) (0 1)))
+  (non-orig (invk a) (invk b))
+  (uniq-orig s)
+  (operation encryption-test (added-strand resp 2) (enc d s) (0 1))
+  (label 1)
+  (parent 0)
+  (unrealized (1 0))
+  (comment &quot;1 in cohort - 1 not yet seen&quot;))</pre>
+
+<p id="k2">Item <a href="#t0">2</a>, Parent: <a href="#k0">0</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='179.880pt' height='229.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 179.880 229.920' font-size='12.000'>
+  <defs>
+   <marker
+    id='arrow' orient='auto' markerWidth='5' markerHeight='10' refX='5'
+    refY='5'>
+    <path
+     d='M 0 0 5 5 0 10'
+     style='stroke-width: 2; fill: none; stroke: black;'/></marker>
+   </defs>
+  <line
+   x1='139.920' y1='114.960' x2='139.920' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <line
+   x1='39.960' y1='114.960' x2='39.960' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <path
+   d='M 139.920 189.960 Q 92.940 189.960 45.960 189.960'
+   style='stroke-dasharray: 6.000,2.400; stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g><title>s</title><circle cx='139.920' cy='189.960' r='6.000'/></g>
+  <g><title>s</title>
+   <circle style='fill: red;' cx='139.920' cy='114.960' r='6.000'/></g>
+  <g><title>(enc d s)</title>
+   <circle style='fill: blue;' cx='39.960' cy='189.960' r='6.000'/></g>
+  <path
+   d='M 39.960 114.960 Q 86.940 114.960 133.920 114.960'
+   style='stroke-dasharray: 6.000,2.400; stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g><title>(enc (enc s (invk a)) b)</title>
+   <circle cx='39.960' cy='114.960' r='6.000'/></g>
+  <g><title>((d d) (s s) (a a) (b b))</title>
+   <text x='39.960' y='77.460' style='text-anchor: middle;'>init</text>
+   </g>
+  <text
+   x='89.940' y='39.960' style='text-anchor: middle;'>blanchet 2</text>
+  </svg></div>
+
+<pre>(defskeleton blanchet
+  (vars (d data) (s skey) (a b akey))
+  (defstrand init 2 (d d) (s s) (a a) (b b))
+  (deflistener s)
+  (precedes ((0 0) (1 0)) ((1 1) (0 1)))
+  (non-orig (invk a) (invk b))
+  (uniq-orig s)
+  (operation encryption-test (added-listener s) (enc d s) (0 1))
+  (label 2)
+  (parent 0)
+  (unrealized (1 0))
+  (comment &quot;empty cohort&quot;))</pre>
+
+<p id="k3">Item <a href="#t0">3</a>, Parent: <a href="#k1">1</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='179.880pt' height='229.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 179.880 229.920' font-size='12.000'>
+  <defs>
+   <marker
+    id='arrow' orient='auto' markerWidth='5' markerHeight='10' refX='5'
+    refY='5'>
+    <path
+     d='M 0 0 5 5 0 10'
+     style='stroke-width: 2; fill: none; stroke: black;'/></marker>
+   </defs>
+  <line
+   x1='139.920' y1='114.960' x2='139.920' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <line
+   x1='39.960' y1='114.960' x2='39.960' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <path
+   d='M 139.920 189.960 Q 92.940 189.960 45.960 189.960'
+   style='stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g><title>(enc d s)</title>
+   <circle cx='139.920' cy='189.960' r='6.000'/></g>
+  <g><title>(enc (enc s (invk a)) b)</title>
+   <circle style='fill: blue;' cx='139.920' cy='114.960' r='6.000'/></g>
+  <g><title>(enc d s)</title>
+   <circle style='fill: blue;' cx='39.960' cy='189.960' r='6.000'/></g>
+  <path
+   d='M 39.960 114.960 Q 86.940 114.960 133.920 114.960'
+   style='stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g><title>(enc (enc s (invk a)) b)</title>
+   <circle cx='39.960' cy='114.960' r='6.000'/></g>
+  <g><title>((d d) (s s) (a a) (b b))</title>
+   <text x='139.920' y='77.460' style='text-anchor: middle;'>resp</text>
+   </g>
+  <g><title>((d d) (s s) (a a) (b b))</title>
+   <text x='39.960' y='77.460' style='text-anchor: middle;'>init</text>
+   </g>
+  <text
+   x='89.940' y='39.960'
+   style='text-anchor: middle;'>blanchet 3 (realized)</text></svg></div>
+
+<pre>(defskeleton blanchet
+  (vars (d data) (s skey) (a b akey))
+  (defstrand init 2 (d d) (s s) (a a) (b b))
+  (defstrand resp 2 (d d) (s s) (a a) (b b))
+  (precedes ((0 0) (1 0)) ((1 1) (0 1)))
+  (non-orig (invk a) (invk b))
+  (uniq-orig s)
+  (operation nonce-test (contracted (a-0 a) (b-0 b)) s (1 0)
+    (enc (enc s (invk a)) b))
+  (label 3)
+  (parent 1)
+  (unrealized)
+  (shape)
+  (maps ((0) ((a a) (b b) (s s) (d d))))
+  (origs (s (0 0))))</pre>
+
+<p id="t4">Tree <a href="#top">4</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='129.840pt' height='79.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 129.840 79.920' font-size='12.000'>
+  <text
+   x='89.880' y='26.040'
+   style='font-weight: bold; text-anchor: middle; fill: blue;'
+   onclick='window.open(&quot;#k5&quot;, &quot;_self&quot;)'>5</text>
+  <line
+   x1='39.960' y1='39.960' x2='89.880' y2='39.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <text
+   x='39.960' y='26.040' style='text-anchor: middle; fill: black;'
+   onclick='window.open(&quot;#k4&quot;, &quot;_self&quot;)'>4</text>
+  </svg></div>
+
+<pre>(defprotocol blanchet basic
+  (defrole init
+    (vars (a b akey) (s skey) (d data))
+    (trace (send (enc (enc s (invk a)) b)) (recv (enc d s))))
+  (defrole resp
+    (vars (a b akey) (s skey) (d data))
+    (trace (recv (enc (enc s (invk a)) b)) (send (enc d s)))))</pre>
+
+<p id="k4">Item <a href="#t4">4</a>, Child: <a href="#k5">5</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='79.920pt' height='229.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 79.920 229.920' font-size='12.000'>
+  <defs>
+   <marker
+    id='arrow' orient='auto' markerWidth='5' markerHeight='10' refX='5'
+    refY='5'>
+    <path
+     d='M 0 0 5 5 0 10'
+     style='stroke-width: 2; fill: none; stroke: black;'/></marker>
+   </defs>
+  <line
+   x1='39.960' y1='114.960' x2='39.960' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <g><title>(enc d s)</title>
+   <circle cx='39.960' cy='189.960' r='6.000'/></g>
+  <g><title>(enc (enc s (invk a)) b)</title>
+   <circle style='fill: red;' cx='39.960' cy='114.960' r='6.000'/></g>
+  <g><title>((d d) (s s) (a a) (b b))</title>
+   <text x='39.960' y='77.460' style='text-anchor: middle;'>resp</text>
+   </g>
+  <text
+   x='39.960' y='39.960' style='text-anchor: middle;'>blanchet 4</text>
+  </svg></div>
+
+<pre>(defskeleton blanchet
+  (vars (d data) (s skey) (a b akey))
+  (defstrand resp 2 (d d) (s s) (a a) (b b))
+  (non-orig (invk a) (invk b))
+  (uniq-orig d)
+  (comment &quot;Analyze from the responder&apos;s perspective&quot;)
+  (label 4)
+  (unrealized (0 0))
+  (origs (d (0 1)))
+  (comment &quot;1 in cohort - 1 not yet seen&quot;))</pre>
+
+<p id="k5">Item <a href="#t4">5</a>, Parent: <a href="#k4">4</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='179.880pt' height='229.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 179.880 229.920' font-size='12.000'>
+  <defs>
+   <marker
+    id='arrow' orient='auto' markerWidth='5' markerHeight='10' refX='5'
+    refY='5'>
+    <path
+     d='M 0 0 5 5 0 10'
+     style='stroke-width: 2; fill: none; stroke: black;'/></marker>
+   </defs>
+  <line
+   x1='139.920' y1='114.960' x2='139.920' y2='114.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <line
+   x1='39.960' y1='114.960' x2='39.960' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <path
+   d='M 139.920 114.960 Q 92.940 114.960 45.960 114.960'
+   style='stroke-dasharray: 6.000,2.400; stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g><title>(enc (enc s (invk a)) b-0)</title>
+   <circle cx='139.920' cy='114.960' r='6.000'/></g>
+  <g><title>(enc d s)</title>
+   <circle cx='39.960' cy='189.960' r='6.000'/></g>
+  <g><title>(enc (enc s (invk a)) b)</title>
+   <circle style='fill: blue;' cx='39.960' cy='114.960' r='6.000'/></g>
+  <g><title>((s s) (a a) (b b-0))</title>
+   <text x='139.920' y='77.460' style='text-anchor: middle;'>init</text>
+   </g>
+  <g><title>((d d) (s s) (a a) (b b))</title>
+   <text x='39.960' y='77.460' style='text-anchor: middle;'>resp</text>
+   </g>
+  <text
+   x='89.940' y='39.960'
+   style='text-anchor: middle;'>blanchet 5 (realized)</text></svg></div>
+
+<pre>(defskeleton blanchet
+  (vars (d data) (s skey) (a b b-0 akey))
+  (defstrand resp 2 (d d) (s s) (a a) (b b))
+  (defstrand init 1 (s s) (a a) (b b-0))
+  (precedes ((1 0) (0 0)))
+  (non-orig (invk a) (invk b))
+  (uniq-orig d)
+  (operation encryption-test (added-strand init 1) (enc s (invk a))
+    (0 0))
+  (label 5)
+  (parent 4)
+  (unrealized)
+  (shape)
+  (maps ((0) ((a a) (b b) (s s) (d d))))
+  (origs (d (0 1))))</pre>
+
+<p id="t6">Tree <a href="#top">6</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='179.760pt' height='79.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 179.760 79.920' font-size='12.000'>
+  <text
+   x='139.800' y='26.040'
+   style='font-weight: bold; text-anchor: middle; fill: blue;'
+   onclick='window.open(&quot;#k8&quot;, &quot;_self&quot;)'>8</text>
+  <line
+   x1='89.880' y1='39.960' x2='139.800' y2='39.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <text
+   x='89.880' y='26.040' style='text-anchor: middle; fill: black;'
+   onclick='window.open(&quot;#k7&quot;, &quot;_self&quot;)'>7</text>
+  <line
+   x1='39.960' y1='39.960' x2='89.880' y2='39.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <text
+   x='39.960' y='26.040' style='text-anchor: middle; fill: black;'
+   onclick='window.open(&quot;#k6&quot;, &quot;_self&quot;)'>6</text>
+  </svg></div>
+
+<pre>(defprotocol blanchet basic
+  (defrole init
+    (vars (a b akey) (s skey) (d data))
+    (trace (send (enc (enc s (invk a)) b)) (recv (enc d s))))
+  (defrole resp
+    (vars (a b akey) (s skey) (d data))
+    (trace (recv (enc (enc s (invk a)) b)) (send (enc d s)))))</pre>
+
+<p id="k6">Item <a href="#t6">6</a>, Child: <a href="#k7">7</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='179.880pt' height='229.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 179.880 229.920' font-size='12.000'>
+  <defs>
+   <marker
+    id='arrow' orient='auto' markerWidth='5' markerHeight='10' refX='5'
+    refY='5'>
+    <path
+     d='M 0 0 5 5 0 10'
+     style='stroke-width: 2; fill: none; stroke: black;'/></marker>
+   </defs>
+  <line
+   x1='139.920' y1='114.960' x2='139.920' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <line
+   x1='39.960' y1='114.960' x2='39.960' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <g><title>d</title><circle cx='139.920' cy='189.960' r='6.000'/></g>
+  <g><title>d</title>
+   <circle style='fill: red;' cx='139.920' cy='114.960' r='6.000'/></g>
+  <g><title>(enc d s)</title>
+   <circle cx='39.960' cy='189.960' r='6.000'/></g>
+  <g><title>(enc (enc s (invk a)) b)</title>
+   <circle style='fill: red;' cx='39.960' cy='114.960' r='6.000'/></g>
+  <g><title>((d d) (s s) (a a) (b b))</title>
+   <text x='39.960' y='77.460' style='text-anchor: middle;'>resp</text>
+   </g>
+  <text
+   x='89.940' y='39.960' style='text-anchor: middle;'>blanchet 6</text>
+  </svg></div>
+
+<pre>(defskeleton blanchet
+  (vars (d data) (s skey) (a b akey))
+  (defstrand resp 2 (d d) (s s) (a a) (b b))
+  (deflistener d)
+  (non-orig (invk a) (invk b))
+  (uniq-orig d)
+  (comment &quot;Analyze from the responder&apos;s with a listener&quot;)
+  (label 6)
+  (unrealized (0 0) (1 0))
+  (preskeleton)
+  (comment &quot;Not a skeleton&quot;))</pre>
+
+<p id="k7">Item <a href="#t6">7</a>, Parent: <a href="#k6">6</a>, Child: <a href="#k8">8</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='179.880pt' height='304.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 179.880 304.920' font-size='12.000'>
+  <defs>
+   <marker
+    id='arrow' orient='auto' markerWidth='5' markerHeight='10' refX='5'
+    refY='5'>
+    <path
+     d='M 0 0 5 5 0 10'
+     style='stroke-width: 2; fill: none; stroke: black;'/></marker>
+   </defs>
+  <line
+   x1='139.920' y1='189.960' x2='139.920' y2='264.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <line
+   x1='39.960' y1='114.960' x2='39.960' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <g><title>d</title><circle cx='139.920' cy='264.960' r='6.000'/></g>
+  <g><title>d</title>
+   <circle style='fill: blue;' cx='139.920' cy='189.960' r='6.000'/></g>
+  <path
+   d='M 39.960 189.960 Q 86.940 189.960 133.920 189.960'
+   style='stroke-dasharray: 6.000,2.400; stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g><title>(enc d s)</title>
+   <circle cx='39.960' cy='189.960' r='6.000'/></g>
+  <g><title>(enc (enc s (invk a)) b)</title>
+   <circle style='fill: red;' cx='39.960' cy='114.960' r='6.000'/></g>
+  <g><title>((d d) (s s) (a a) (b b))</title>
+   <text x='39.960' y='77.460' style='text-anchor: middle;'>resp</text>
+   </g>
+  <text
+   x='89.940' y='39.960' style='text-anchor: middle;'>blanchet 7</text>
+  </svg></div>
+
+<pre>(defskeleton blanchet
+  (vars (d data) (s skey) (a b akey))
+  (defstrand resp 2 (d d) (s s) (a a) (b b))
+  (deflistener d)
+  (precedes ((0 1) (1 0)))
+  (non-orig (invk a) (invk b))
+  (uniq-orig d)
+  (comment &quot;Analyze from the responder&apos;s with a listener&quot;)
+  (label 7)
+  (parent 6)
+  (unrealized (0 0))
+  (origs (d (0 1)))
+  (comment &quot;1 in cohort - 1 not yet seen&quot;))</pre>
+
+<p id="k8">Item <a href="#t6">8</a>, Parent: <a href="#k7">7</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='279.840pt' height='304.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 279.840 304.920' font-size='12.000'>
+  <defs>
+   <marker
+    id='arrow' orient='auto' markerWidth='5' markerHeight='10' refX='5'
+    refY='5'>
+    <path
+     d='M 0 0 5 5 0 10'
+     style='stroke-width: 2; fill: none; stroke: black;'/></marker>
+   </defs>
+  <line
+   x1='239.880' y1='114.960' x2='239.880' y2='114.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <line
+   x1='139.920' y1='189.960' x2='139.920' y2='264.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <line
+   x1='39.960' y1='114.960' x2='39.960' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <path
+   d='M 239.880 114.960 Q 142.920 77.460 45.960 114.960'
+   style='stroke-dasharray: 6.000,2.400; stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g><title>(enc (enc s (invk a)) b-0)</title>
+   <circle cx='239.880' cy='114.960' r='6.000'/></g>
+  <g><title>d</title><circle cx='139.920' cy='264.960' r='6.000'/></g>
+  <g><title>d</title>
+   <circle style='fill: blue;' cx='139.920' cy='189.960' r='6.000'/></g>
+  <path
+   d='M 39.960 189.960 Q 86.940 189.960 133.920 189.960'
+   style='stroke-dasharray: 6.000,2.400; stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g><title>(enc d s)</title>
+   <circle cx='39.960' cy='189.960' r='6.000'/></g>
+  <g><title>(enc (enc s (invk a)) b)</title>
+   <circle style='fill: blue;' cx='39.960' cy='114.960' r='6.000'/></g>
+  <g><title>((s s) (a a) (b b-0))</title>
+   <text x='239.880' y='77.460' style='text-anchor: middle;'>init</text>
+   </g>
+  <g><title>((d d) (s s) (a a) (b b))</title>
+   <text x='39.960' y='77.460' style='text-anchor: middle;'>resp</text>
+   </g>
+  <text
+   x='139.920' y='39.960'
+   style='text-anchor: middle;'>blanchet 8 (realized)</text></svg></div>
+
+<pre>(defskeleton blanchet
+  (vars (d data) (s skey) (a b b-0 akey))
+  (defstrand resp 2 (d d) (s s) (a a) (b b))
+  (deflistener d)
+  (defstrand init 1 (s s) (a a) (b b-0))
+  (precedes ((0 1) (1 0)) ((2 0) (0 0)))
+  (non-orig (invk a) (invk b))
+  (uniq-orig d)
+  (operation encryption-test (added-strand init 1) (enc s (invk a))
+    (0 0))
+  (label 8)
+  (parent 7)
+  (unrealized)
+  (shape)
+  (maps ((0 1) ((a a) (b b) (s s) (d d))))
+  (origs (d (0 1))))</pre>
+
+<p id="t9">Tree <a href="#top">9</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='129.840pt' height='79.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 129.840 79.920' font-size='12.000'>
+  <text
+   x='89.880' y='26.040'
+   style='font-weight: bold; text-anchor: middle; fill: blue;'
+   onclick='window.open(&quot;#k10&quot;, &quot;_self&quot;)'>10</text>
+  <line
+   x1='39.960' y1='39.960' x2='89.880' y2='39.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <text
+   x='39.960' y='26.040' style='text-anchor: middle; fill: black;'
+   onclick='window.open(&quot;#k9&quot;, &quot;_self&quot;)'>9</text>
+  </svg></div>
+
+<pre>(defprotocol blanchet basic
+  (defrole init
+    (vars (a b akey) (s skey) (d data))
+    (trace (send (enc (enc s (invk a)) b)) (recv (enc d s))))
+  (defrole resp
+    (vars (a b akey) (s skey) (d data))
+    (trace (recv (enc (enc s (invk a)) b)) (send (enc d s)))))</pre>
+
+<p id="k9">Item <a href="#t9">9</a>, Child: <a href="#k10">10</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='179.880pt' height='229.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 179.880 229.920' font-size='12.000'>
+  <defs>
+   <marker
+    id='arrow' orient='auto' markerWidth='5' markerHeight='10' refX='5'
+    refY='5'>
+    <path
+     d='M 0 0 5 5 0 10'
+     style='stroke-width: 2; fill: none; stroke: black;'/></marker>
+   </defs>
+  <line
+   x1='139.920' y1='114.960' x2='139.920' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <line
+   x1='39.960' y1='114.960' x2='39.960' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <g><title>(enc d s)</title>
+   <circle cx='139.920' cy='189.960' r='6.000'/></g>
+  <g><title>(enc (enc s (invk a)) b-0)</title>
+   <circle style='fill: red;' cx='139.920' cy='114.960' r='6.000'/></g>
+  <g><title>(enc d s)</title>
+   <circle style='fill: red;' cx='39.960' cy='189.960' r='6.000'/></g>
+  <g><title>(enc (enc s (invk a)) b)</title>
+   <circle cx='39.960' cy='114.960' r='6.000'/></g>
+  <g><title>((d d) (s s) (a a) (b b-0))</title>
+   <text x='139.920' y='77.460' style='text-anchor: middle;'>resp</text>
+   </g>
+  <g><title>((d d) (s s) (a a) (b b))</title>
+   <text x='39.960' y='77.460' style='text-anchor: middle;'>init</text>
+   </g>
+  <text
+   x='89.940' y='39.960' style='text-anchor: middle;'>blanchet 9</text>
+  </svg></div>
+
+<pre>(defskeleton blanchet
+  (vars (d data) (s skey) (a b b-0 akey))
+  (defstrand init 2 (d d) (s s) (a a) (b b))
+  (defstrand resp 2 (d d) (s s) (a a) (b b-0))
+  (non-orig (invk a))
+  (uniq-orig d s)
+  (comment &quot;Analyze with disagree on values of b&quot;)
+  (label 9)
+  (unrealized (0 1) (1 0))
+  (preskeleton)
+  (comment &quot;Not a skeleton&quot;))</pre>
+
+<p id="k10">Item <a href="#t9">10</a>, Parent: <a href="#k9">9</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='179.880pt' height='229.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 179.880 229.920' font-size='12.000'>
+  <defs>
+   <marker
+    id='arrow' orient='auto' markerWidth='5' markerHeight='10' refX='5'
+    refY='5'>
+    <path
+     d='M 0 0 5 5 0 10'
+     style='stroke-width: 2; fill: none; stroke: black;'/></marker>
+   </defs>
+  <line
+   x1='139.920' y1='114.960' x2='139.920' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <line
+   x1='39.960' y1='114.960' x2='39.960' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <path
+   d='M 139.920 189.960 Q 92.940 189.960 45.960 189.960'
+   style='stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g><title>(enc d s)</title>
+   <circle cx='139.920' cy='189.960' r='6.000'/></g>
+  <g><title>(enc (enc s (invk a)) b-0)</title>
+   <circle style='fill: blue;' cx='139.920' cy='114.960' r='6.000'/></g>
+  <g><title>(enc d s)</title>
+   <circle style='fill: blue;' cx='39.960' cy='189.960' r='6.000'/></g>
+  <path
+   d='M 39.960 114.960 Q 86.940 114.960 133.920 114.960'
+   style='stroke-dasharray: 6.000,2.400; stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g><title>(enc (enc s (invk a)) b)</title>
+   <circle cx='39.960' cy='114.960' r='6.000'/></g>
+  <g><title>((d d) (s s) (a a) (b b-0))</title>
+   <text x='139.920' y='77.460' style='text-anchor: middle;'>resp</text>
+   </g>
+  <g><title>((d d) (s s) (a a) (b b))</title>
+   <text x='39.960' y='77.460' style='text-anchor: middle;'>init</text>
+   </g>
+  <text
+   x='89.940' y='39.960'
+   style='text-anchor: middle;'>blanchet 10 (realized)</text></svg>
+ </div>
+
+<pre>(defskeleton blanchet
+  (vars (d data) (s skey) (a b b-0 akey))
+  (defstrand init 2 (d d) (s s) (a a) (b b))
+  (defstrand resp 2 (d d) (s s) (a a) (b b-0))
+  (precedes ((0 0) (1 0)) ((1 1) (0 1)))
+  (non-orig (invk a))
+  (uniq-orig d s)
+  (comment &quot;Analyze with disagree on values of b&quot;)
+  (label 10)
+  (parent 9)
+  (unrealized)
+  (shape)
+  (maps ((0 1) ((a a) (b b) (s s) (d d) (b-0 b-0))))
+  (origs (s (0 0)) (d (1 1))))</pre>
+
+<p id="t11">Tree <a href="#top">11</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='179.760pt' height='154.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 179.760 154.920' font-size='12.000'>
+  <text
+   x='89.880' y='101.040' style='text-anchor: middle; fill: red;'
+   onclick='window.open(&quot;#k13&quot;, &quot;_self&quot;)'>13</text>
+  <line
+   x1='39.960' y1='77.460' x2='89.880' y2='114.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <text
+   x='139.800' y='26.040'
+   style='font-weight: bold; text-anchor: middle; fill: blue;'
+   onclick='window.open(&quot;#k14&quot;, &quot;_self&quot;)'>14</text>
+  <line
+   x1='89.880' y1='39.960' x2='139.800' y2='39.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <text
+   x='89.880' y='26.040' style='text-anchor: middle; fill: black;'
+   onclick='window.open(&quot;#k12&quot;, &quot;_self&quot;)'>12</text>
+  <line
+   x1='39.960' y1='77.460' x2='89.880' y2='39.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <text
+   x='39.960' y='63.540' style='text-anchor: middle; fill: black;'
+   onclick='window.open(&quot;#k11&quot;, &quot;_self&quot;)'>11</text>
+  </svg></div>
+
+<pre>(defprotocol blanchet-corrected basic
+  (defrole init
+    (vars (a b akey) (s skey) (d data))
+    (trace (send (enc (enc s b (invk a)) b)) (recv (enc (enc d s) a))))
+  (defrole resp
+    (vars (a b akey) (s skey) (d data))
+    (trace (recv (enc (enc s b (invk a)) b)) (send (enc (enc d s) a)))))</pre>
+
+<p id="k11">Item <a href="#t11">11</a>, Children: <a href="#k12">12</a> <a href="#k13">13</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='79.920pt' height='229.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 79.920 229.920' font-size='12.000'>
+  <defs>
+   <marker
+    id='arrow' orient='auto' markerWidth='5' markerHeight='10' refX='5'
+    refY='5'>
+    <path
+     d='M 0 0 5 5 0 10'
+     style='stroke-width: 2; fill: none; stroke: black;'/></marker>
+   </defs>
+  <line
+   x1='39.960' y1='114.960' x2='39.960' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <g><title>(enc (enc d s) a)</title>
+   <circle style='fill: red;' cx='39.960' cy='189.960' r='6.000'/></g>
+  <g><title>(enc (enc s b (invk a)) b)</title>
+   <circle cx='39.960' cy='114.960' r='6.000'/></g>
+  <g><title>((d d) (s s) (a a) (b b))</title>
+   <text x='39.960' y='77.460' style='text-anchor: middle;'>init</text>
+   </g>
+  <text
+   x='39.960' y='39.960'
+   style='text-anchor: middle;'>blanchet-corrected 11</text></svg></div>
+
+<pre>(defskeleton blanchet-corrected
+  (vars (d data) (s skey) (a b akey))
+  (defstrand init 2 (d d) (s s) (a a) (b b))
+  (non-orig (invk a) (invk b))
+  (uniq-orig s)
+  (comment &quot;Analyze from the initiator&apos;s perspective&quot;)
+  (label 11)
+  (unrealized (0 1))
+  (origs (s (0 0)))
+  (comment &quot;2 in cohort - 2 not yet seen&quot;))</pre>
+
+<p id="k12">Item <a href="#t11">12</a>, Parent: <a href="#k11">11</a>, Child: <a href="#k14">14</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='179.880pt' height='229.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 179.880 229.920' font-size='12.000'>
+  <defs>
+   <marker
+    id='arrow' orient='auto' markerWidth='5' markerHeight='10' refX='5'
+    refY='5'>
+    <path
+     d='M 0 0 5 5 0 10'
+     style='stroke-width: 2; fill: none; stroke: black;'/></marker>
+   </defs>
+  <line
+   x1='139.920' y1='114.960' x2='139.920' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <line
+   x1='39.960' y1='114.960' x2='39.960' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <path
+   d='M 139.920 189.960 Q 92.940 189.960 45.960 189.960'
+   style='stroke-dasharray: 6.000,2.400; stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g><title>(enc (enc d s) a-0)</title>
+   <circle cx='139.920' cy='189.960' r='6.000'/></g>
+  <g><title>(enc (enc s b-0 (invk a-0)) b-0)</title>
+   <circle style='fill: red;' cx='139.920' cy='114.960' r='6.000'/></g>
+  <g><title>(enc (enc d s) a)</title>
+   <circle style='fill: blue;' cx='39.960' cy='189.960' r='6.000'/></g>
+  <path
+   d='M 39.960 114.960 Q 86.940 114.960 133.920 114.960'
+   style='stroke-dasharray: 6.000,2.400; stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g><title>(enc (enc s b (invk a)) b)</title>
+   <circle cx='39.960' cy='114.960' r='6.000'/></g>
+  <g><title>((d d) (s s) (a a-0) (b b-0))</title>
+   <text x='139.920' y='77.460' style='text-anchor: middle;'>resp</text>
+   </g>
+  <g><title>((d d) (s s) (a a) (b b))</title>
+   <text x='39.960' y='77.460' style='text-anchor: middle;'>init</text>
+   </g>
+  <text
+   x='89.940' y='39.960'
+   style='text-anchor: middle;'>blanchet-corrected 12</text></svg></div>
+
+<pre>(defskeleton blanchet-corrected
+  (vars (d data) (s skey) (a b a-0 b-0 akey))
+  (defstrand init 2 (d d) (s s) (a a) (b b))
+  (defstrand resp 2 (d d) (s s) (a a-0) (b b-0))
+  (precedes ((0 0) (1 0)) ((1 1) (0 1)))
+  (non-orig (invk a) (invk b))
+  (uniq-orig s)
+  (operation encryption-test (added-strand resp 2) (enc d s) (0 1))
+  (label 12)
+  (parent 11)
+  (unrealized (1 0))
+  (comment &quot;1 in cohort - 1 not yet seen&quot;))</pre>
+
+<p id="k13">Item <a href="#t11">13</a>, Parent: <a href="#k11">11</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='179.880pt' height='229.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 179.880 229.920' font-size='12.000'>
+  <defs>
+   <marker
+    id='arrow' orient='auto' markerWidth='5' markerHeight='10' refX='5'
+    refY='5'>
+    <path
+     d='M 0 0 5 5 0 10'
+     style='stroke-width: 2; fill: none; stroke: black;'/></marker>
+   </defs>
+  <line
+   x1='139.920' y1='114.960' x2='139.920' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <line
+   x1='39.960' y1='114.960' x2='39.960' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <path
+   d='M 139.920 189.960 Q 92.940 189.960 45.960 189.960'
+   style='stroke-dasharray: 6.000,2.400; stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g><title>s</title><circle cx='139.920' cy='189.960' r='6.000'/></g>
+  <g><title>s</title>
+   <circle style='fill: red;' cx='139.920' cy='114.960' r='6.000'/></g>
+  <g><title>(enc (enc d s) a)</title>
+   <circle style='fill: blue;' cx='39.960' cy='189.960' r='6.000'/></g>
+  <path
+   d='M 39.960 114.960 Q 86.940 114.960 133.920 114.960'
+   style='stroke-dasharray: 6.000,2.400; stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g><title>(enc (enc s b (invk a)) b)</title>
+   <circle cx='39.960' cy='114.960' r='6.000'/></g>
+  <g><title>((d d) (s s) (a a) (b b))</title>
+   <text x='39.960' y='77.460' style='text-anchor: middle;'>init</text>
+   </g>
+  <text
+   x='89.940' y='39.960'
+   style='text-anchor: middle;'>blanchet-corrected 13</text></svg></div>
+
+<pre>(defskeleton blanchet-corrected
+  (vars (d data) (s skey) (a b akey))
+  (defstrand init 2 (d d) (s s) (a a) (b b))
+  (deflistener s)
+  (precedes ((0 0) (1 0)) ((1 1) (0 1)))
+  (non-orig (invk a) (invk b))
+  (uniq-orig s)
+  (operation encryption-test (added-listener s) (enc d s) (0 1))
+  (label 13)
+  (parent 11)
+  (unrealized (1 0))
+  (comment &quot;empty cohort&quot;))</pre>
+
+<p id="k14">Item <a href="#t11">14</a>, Parent: <a href="#k12">12</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='179.880pt' height='229.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 179.880 229.920' font-size='12.000'>
+  <defs>
+   <marker
+    id='arrow' orient='auto' markerWidth='5' markerHeight='10' refX='5'
+    refY='5'>
+    <path
+     d='M 0 0 5 5 0 10'
+     style='stroke-width: 2; fill: none; stroke: black;'/></marker>
+   </defs>
+  <line
+   x1='139.920' y1='114.960' x2='139.920' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <line
+   x1='39.960' y1='114.960' x2='39.960' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <path
+   d='M 139.920 189.960 Q 92.940 189.960 45.960 189.960'
+   style='stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g><title>(enc (enc d s) a)</title>
+   <circle cx='139.920' cy='189.960' r='6.000'/></g>
+  <g><title>(enc (enc s b (invk a)) b)</title>
+   <circle style='fill: blue;' cx='139.920' cy='114.960' r='6.000'/></g>
+  <g><title>(enc (enc d s) a)</title>
+   <circle style='fill: blue;' cx='39.960' cy='189.960' r='6.000'/></g>
+  <path
+   d='M 39.960 114.960 Q 86.940 114.960 133.920 114.960'
+   style='stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g><title>(enc (enc s b (invk a)) b)</title>
+   <circle cx='39.960' cy='114.960' r='6.000'/></g>
+  <g><title>((d d) (s s) (a a) (b b))</title>
+   <text x='139.920' y='77.460' style='text-anchor: middle;'>resp</text>
+   </g>
+  <g><title>((d d) (s s) (a a) (b b))</title>
+   <text x='39.960' y='77.460' style='text-anchor: middle;'>init</text>
+   </g>
+  <text
+   x='89.940' y='39.960'
+   style='text-anchor: middle;'>blanchet-corrected 14 (realized)</text>
+  </svg></div>
+
+<pre>(defskeleton blanchet-corrected
+  (vars (d data) (s skey) (a b akey))
+  (defstrand init 2 (d d) (s s) (a a) (b b))
+  (defstrand resp 2 (d d) (s s) (a a) (b b))
+  (precedes ((0 0) (1 0)) ((1 1) (0 1)))
+  (non-orig (invk a) (invk b))
+  (uniq-orig s)
+  (operation nonce-test (contracted (a-0 a) (b-0 b)) s (1 0)
+    (enc (enc s b (invk a)) b))
+  (label 14)
+  (parent 12)
+  (unrealized)
+  (shape)
+  (maps ((0) ((a a) (b b) (s s) (d d))))
+  (origs (s (0 0))))</pre>
+
+<p id="t15">Tree <a href="#top">15</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='129.840pt' height='79.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 129.840 79.920' font-size='12.000'>
+  <text
+   x='89.880' y='26.040'
+   style='font-weight: bold; text-anchor: middle; fill: blue;'
+   onclick='window.open(&quot;#k16&quot;, &quot;_self&quot;)'>16</text>
+  <line
+   x1='39.960' y1='39.960' x2='89.880' y2='39.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <text
+   x='39.960' y='26.040' style='text-anchor: middle; fill: black;'
+   onclick='window.open(&quot;#k15&quot;, &quot;_self&quot;)'>15</text>
+  </svg></div>
+
+<pre>(defprotocol blanchet-corrected basic
+  (defrole init
+    (vars (a b akey) (s skey) (d data))
+    (trace (send (enc (enc s b (invk a)) b)) (recv (enc (enc d s) a))))
+  (defrole resp
+    (vars (a b akey) (s skey) (d data))
+    (trace (recv (enc (enc s b (invk a)) b)) (send (enc (enc d s) a)))))</pre>
+
+<p id="k15">Item <a href="#t15">15</a>, Child: <a href="#k16">16</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='79.920pt' height='229.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 79.920 229.920' font-size='12.000'>
+  <defs>
+   <marker
+    id='arrow' orient='auto' markerWidth='5' markerHeight='10' refX='5'
+    refY='5'>
+    <path
+     d='M 0 0 5 5 0 10'
+     style='stroke-width: 2; fill: none; stroke: black;'/></marker>
+   </defs>
+  <line
+   x1='39.960' y1='114.960' x2='39.960' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <g><title>(enc (enc d s) a)</title>
+   <circle cx='39.960' cy='189.960' r='6.000'/></g>
+  <g><title>(enc (enc s b (invk a)) b)</title>
+   <circle style='fill: red;' cx='39.960' cy='114.960' r='6.000'/></g>
+  <g><title>((d d) (s s) (a a) (b b))</title>
+   <text x='39.960' y='77.460' style='text-anchor: middle;'>resp</text>
+   </g>
+  <text
+   x='39.960' y='39.960'
+   style='text-anchor: middle;'>blanchet-corrected 15</text></svg></div>
+
+<pre>(defskeleton blanchet-corrected
+  (vars (d data) (s skey) (a b akey))
+  (defstrand resp 2 (d d) (s s) (a a) (b b))
+  (non-orig (invk a) (invk b))
+  (uniq-orig d)
+  (comment &quot;Analyze from the responder&apos;s perspective&quot;)
+  (label 15)
+  (unrealized (0 0))
+  (origs (d (0 1)))
+  (comment &quot;1 in cohort - 1 not yet seen&quot;))</pre>
+
+<p id="k16">Item <a href="#t15">16</a>, Parent: <a href="#k15">15</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='179.880pt' height='229.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 179.880 229.920' font-size='12.000'>
+  <defs>
+   <marker
+    id='arrow' orient='auto' markerWidth='5' markerHeight='10' refX='5'
+    refY='5'>
+    <path
+     d='M 0 0 5 5 0 10'
+     style='stroke-width: 2; fill: none; stroke: black;'/></marker>
+   </defs>
+  <line
+   x1='139.920' y1='114.960' x2='139.920' y2='114.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <line
+   x1='39.960' y1='114.960' x2='39.960' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <path
+   d='M 139.920 114.960 Q 92.940 114.960 45.960 114.960'
+   style='stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g><title>(enc (enc s b (invk a)) b)</title>
+   <circle cx='139.920' cy='114.960' r='6.000'/></g>
+  <g><title>(enc (enc d s) a)</title>
+   <circle cx='39.960' cy='189.960' r='6.000'/></g>
+  <g><title>(enc (enc s b (invk a)) b)</title>
+   <circle style='fill: blue;' cx='39.960' cy='114.960' r='6.000'/></g>
+  <g><title>((s s) (a a) (b b))</title>
+   <text x='139.920' y='77.460' style='text-anchor: middle;'>init</text>
+   </g>
+  <g><title>((d d) (s s) (a a) (b b))</title>
+   <text x='39.960' y='77.460' style='text-anchor: middle;'>resp</text>
+   </g>
+  <text
+   x='89.940' y='39.960'
+   style='text-anchor: middle;'>blanchet-corrected 16 (realized)</text>
+  </svg></div>
+
+<pre>(defskeleton blanchet-corrected
+  (vars (d data) (s skey) (a b akey))
+  (defstrand resp 2 (d d) (s s) (a a) (b b))
+  (defstrand init 1 (s s) (a a) (b b))
+  (precedes ((1 0) (0 0)))
+  (non-orig (invk a) (invk b))
+  (uniq-orig d)
+  (operation encryption-test (added-strand init 1) (enc s b (invk a))
+    (0 0))
+  (label 16)
+  (parent 15)
+  (unrealized)
+  (shape)
+  (maps ((0) ((a a) (b b) (s s) (d d))))
+  (origs (d (0 1))))</pre>
+
+<p id="t17">Tree <a href="#top">17</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='129.840pt' height='79.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 129.840 79.920' font-size='12.000'>
+  <text
+   x='89.880' y='26.040' style='text-anchor: middle; fill: red;'
+   onclick='window.open(&quot;#k18&quot;, &quot;_self&quot;)'>18</text>
+  <line
+   x1='39.960' y1='39.960' x2='89.880' y2='39.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <text
+   x='39.960' y='26.040' style='text-anchor: middle; fill: red;'
+   onclick='window.open(&quot;#k17&quot;, &quot;_self&quot;)'>17</text>
+  </svg></div>
+
+<pre>(defprotocol blanchet-corrected basic
+  (defrole init
+    (vars (a b akey) (s skey) (d data))
+    (trace (send (enc (enc s b (invk a)) b)) (recv (enc (enc d s) a))))
+  (defrole resp
+    (vars (a b akey) (s skey) (d data))
+    (trace (recv (enc (enc s b (invk a)) b)) (send (enc (enc d s) a)))))</pre>
+
+<p id="k17">Item <a href="#t17">17</a>, Child: <a href="#k18">18</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='179.880pt' height='229.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 179.880 229.920' font-size='12.000'>
+  <defs>
+   <marker
+    id='arrow' orient='auto' markerWidth='5' markerHeight='10' refX='5'
+    refY='5'>
+    <path
+     d='M 0 0 5 5 0 10'
+     style='stroke-width: 2; fill: none; stroke: black;'/></marker>
+   </defs>
+  <line
+   x1='139.920' y1='114.960' x2='139.920' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <line
+   x1='39.960' y1='114.960' x2='39.960' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <g><title>d</title><circle cx='139.920' cy='189.960' r='6.000'/></g>
+  <g><title>d</title>
+   <circle style='fill: red;' cx='139.920' cy='114.960' r='6.000'/></g>
+  <g><title>(enc (enc d s) a)</title>
+   <circle cx='39.960' cy='189.960' r='6.000'/></g>
+  <g><title>(enc (enc s b (invk a)) b)</title>
+   <circle style='fill: red;' cx='39.960' cy='114.960' r='6.000'/></g>
+  <g><title>((d d) (s s) (a a) (b b))</title>
+   <text x='39.960' y='77.460' style='text-anchor: middle;'>resp</text>
+   </g>
+  <text
+   x='89.940' y='39.960'
+   style='text-anchor: middle;'>blanchet-corrected 17</text></svg></div>
+
+<pre>(defskeleton blanchet-corrected
+  (vars (d data) (s skey) (a b akey))
+  (defstrand resp 2 (d d) (s s) (a a) (b b))
+  (deflistener d)
+  (non-orig (invk a) (invk b))
+  (uniq-orig d)
+  (comment &quot;Analyze from the responder&apos;s with a listener&quot;)
+  (label 17)
+  (unrealized (0 0) (1 0))
+  (preskeleton)
+  (comment &quot;Not a skeleton&quot;))</pre>
+
+<p id="k18">Item <a href="#t17">18</a>, Parent: <a href="#k17">17</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='179.880pt' height='304.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 179.880 304.920' font-size='12.000'>
+  <defs>
+   <marker
+    id='arrow' orient='auto' markerWidth='5' markerHeight='10' refX='5'
+    refY='5'>
+    <path
+     d='M 0 0 5 5 0 10'
+     style='stroke-width: 2; fill: none; stroke: black;'/></marker>
+   </defs>
+  <line
+   x1='139.920' y1='189.960' x2='139.920' y2='264.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <line
+   x1='39.960' y1='114.960' x2='39.960' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <g><title>d</title><circle cx='139.920' cy='264.960' r='6.000'/></g>
+  <g><title>d</title>
+   <circle style='fill: red;' cx='139.920' cy='189.960' r='6.000'/></g>
+  <path
+   d='M 39.960 189.960 Q 86.940 189.960 133.920 189.960'
+   style='stroke-dasharray: 6.000,2.400; stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g><title>(enc (enc d s) a)</title>
+   <circle cx='39.960' cy='189.960' r='6.000'/></g>
+  <g><title>(enc (enc s b (invk a)) b)</title>
+   <circle style='fill: red;' cx='39.960' cy='114.960' r='6.000'/></g>
+  <g><title>((d d) (s s) (a a) (b b))</title>
+   <text x='39.960' y='77.460' style='text-anchor: middle;'>resp</text>
+   </g>
+  <text
+   x='89.940' y='39.960'
+   style='text-anchor: middle;'>blanchet-corrected 18</text></svg></div>
+
+<pre>(defskeleton blanchet-corrected
+  (vars (d data) (s skey) (a b akey))
+  (defstrand resp 2 (d d) (s s) (a a) (b b))
+  (deflistener d)
+  (precedes ((0 1) (1 0)))
+  (non-orig (invk a) (invk b))
+  (uniq-orig d)
+  (comment &quot;Analyze from the responder&apos;s with a listener&quot;)
+  (label 18)
+  (parent 17)
+  (unrealized (0 0) (1 0))
+  (origs (d (0 1)))
+  (comment &quot;empty cohort&quot;))</pre>
+
+<p id="t19">Tree <a href="#top">19</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='179.760pt' height='79.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 179.760 79.920' font-size='12.000'>
+  <text
+   x='139.800' y='26.040'
+   style='font-weight: bold; text-anchor: middle; fill: blue;'
+   onclick='window.open(&quot;#k21&quot;, &quot;_self&quot;)'>21</text>
+  <line
+   x1='89.880' y1='39.960' x2='139.800' y2='39.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <text
+   x='89.880' y='26.040' style='text-anchor: middle; fill: black;'
+   onclick='window.open(&quot;#k20&quot;, &quot;_self&quot;)'>20</text>
+  <line
+   x1='39.960' y1='39.960' x2='89.880' y2='39.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <text
+   x='39.960' y='26.040' style='text-anchor: middle; fill: black;'
+   onclick='window.open(&quot;#k19&quot;, &quot;_self&quot;)'>19</text>
+  </svg></div>
+
+<pre>(defprotocol blanchet-corrected basic
+  (defrole init
+    (vars (a b akey) (s skey) (d data))
+    (trace (send (enc (enc s b (invk a)) b)) (recv (enc (enc d s) a))))
+  (defrole resp
+    (vars (a b akey) (s skey) (d data))
+    (trace (recv (enc (enc s b (invk a)) b)) (send (enc (enc d s) a)))))</pre>
+
+<p id="k19">Item <a href="#t19">19</a>, Child: <a href="#k20">20</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='179.880pt' height='229.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 179.880 229.920' font-size='12.000'>
+  <defs>
+   <marker
+    id='arrow' orient='auto' markerWidth='5' markerHeight='10' refX='5'
+    refY='5'>
+    <path
+     d='M 0 0 5 5 0 10'
+     style='stroke-width: 2; fill: none; stroke: black;'/></marker>
+   </defs>
+  <line
+   x1='139.920' y1='114.960' x2='139.920' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <line
+   x1='39.960' y1='114.960' x2='39.960' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <g><title>(enc (enc d s) a)</title>
+   <circle cx='139.920' cy='189.960' r='6.000'/></g>
+  <g><title>(enc (enc s b-0 (invk a)) b-0)</title>
+   <circle style='fill: red;' cx='139.920' cy='114.960' r='6.000'/></g>
+  <g><title>(enc (enc d s) a)</title>
+   <circle style='fill: red;' cx='39.960' cy='189.960' r='6.000'/></g>
+  <g><title>(enc (enc s b (invk a)) b)</title>
+   <circle cx='39.960' cy='114.960' r='6.000'/></g>
+  <g><title>((d d) (s s) (a a) (b b-0))</title>
+   <text x='139.920' y='77.460' style='text-anchor: middle;'>resp</text>
+   </g>
+  <g><title>((d d) (s s) (a a) (b b))</title>
+   <text x='39.960' y='77.460' style='text-anchor: middle;'>init</text>
+   </g>
+  <text
+   x='89.940' y='39.960'
+   style='text-anchor: middle;'>blanchet-corrected 19</text></svg></div>
+
+<pre>(defskeleton blanchet-corrected
+  (vars (d data) (s skey) (a b b-0 akey))
+  (defstrand init 2 (d d) (s s) (a a) (b b))
+  (defstrand resp 2 (d d) (s s) (a a) (b b-0))
+  (non-orig (invk a))
+  (uniq-orig d s)
+  (comment &quot;Analyze with disagree on values of b&quot;)
+  (label 19)
+  (unrealized (0 1) (1 0))
+  (preskeleton)
+  (comment &quot;Not a skeleton&quot;))</pre>
+
+<p id="k20">Item <a href="#t19">20</a>, Parent: <a href="#k19">19</a>, Child: <a href="#k21">21</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='179.880pt' height='229.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 179.880 229.920' font-size='12.000'>
+  <defs>
+   <marker
+    id='arrow' orient='auto' markerWidth='5' markerHeight='10' refX='5'
+    refY='5'>
+    <path
+     d='M 0 0 5 5 0 10'
+     style='stroke-width: 2; fill: none; stroke: black;'/></marker>
+   </defs>
+  <line
+   x1='139.920' y1='114.960' x2='139.920' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <line
+   x1='39.960' y1='114.960' x2='39.960' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <path
+   d='M 139.920 189.960 Q 92.940 189.960 45.960 189.960'
+   style='stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g><title>(enc (enc d s) a)</title>
+   <circle cx='139.920' cy='189.960' r='6.000'/></g>
+  <g><title>(enc (enc s b-0 (invk a)) b-0)</title>
+   <circle style='fill: red;' cx='139.920' cy='114.960' r='6.000'/></g>
+  <g><title>(enc (enc d s) a)</title>
+   <circle style='fill: blue;' cx='39.960' cy='189.960' r='6.000'/></g>
+  <path
+   d='M 39.960 114.960 Q 86.940 114.960 133.920 114.960'
+   style='stroke-dasharray: 6.000,2.400; stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g><title>(enc (enc s b (invk a)) b)</title>
+   <circle cx='39.960' cy='114.960' r='6.000'/></g>
+  <g><title>((d d) (s s) (a a) (b b-0))</title>
+   <text x='139.920' y='77.460' style='text-anchor: middle;'>resp</text>
+   </g>
+  <g><title>((d d) (s s) (a a) (b b))</title>
+   <text x='39.960' y='77.460' style='text-anchor: middle;'>init</text>
+   </g>
+  <text
+   x='89.940' y='39.960'
+   style='text-anchor: middle;'>blanchet-corrected 20</text></svg></div>
+
+<pre>(defskeleton blanchet-corrected
+  (vars (d data) (s skey) (a b b-0 akey))
+  (defstrand init 2 (d d) (s s) (a a) (b b))
+  (defstrand resp 2 (d d) (s s) (a a) (b b-0))
+  (precedes ((0 0) (1 0)) ((1 1) (0 1)))
+  (non-orig (invk a))
+  (uniq-orig d s)
+  (comment &quot;Analyze with disagree on values of b&quot;)
+  (label 20)
+  (parent 19)
+  (unrealized (1 0))
+  (origs (s (0 0)) (d (1 1)))
+  (comment &quot;1 in cohort - 1 not yet seen&quot;))</pre>
+
+<p id="k21">Item <a href="#t19">21</a>, Parent: <a href="#k20">20</a>.</p>
+
+<div>
+ <svg
+  class='diagram' width='179.880pt' height='229.920pt'
+  xmlns='http://www.w3.org/2000/svg' version='1.1'
+  viewBox='0 0 179.880 229.920' font-size='12.000'>
+  <defs>
+   <marker
+    id='arrow' orient='auto' markerWidth='5' markerHeight='10' refX='5'
+    refY='5'>
+    <path
+     d='M 0 0 5 5 0 10'
+     style='stroke-width: 2; fill: none; stroke: black;'/></marker>
+   </defs>
+  <line
+   x1='139.920' y1='114.960' x2='139.920' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <line
+   x1='39.960' y1='114.960' x2='39.960' y2='189.960'
+   style='stroke-width: 0.960; stroke: gray;'/>
+  <path
+   d='M 139.920 189.960 Q 92.940 189.960 45.960 189.960'
+   style='stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g><title>(enc (enc d s) a)</title>
+   <circle cx='139.920' cy='189.960' r='6.000'/></g>
+  <g><title>(enc (enc s b (invk a)) b)</title>
+   <circle style='fill: blue;' cx='139.920' cy='114.960' r='6.000'/></g>
+  <g><title>(enc (enc d s) a)</title>
+   <circle style='fill: blue;' cx='39.960' cy='189.960' r='6.000'/></g>
+  <path
+   d='M 39.960 114.960 Q 86.940 114.960 133.920 114.960'
+   style='stroke-width: 0.960; stroke: black; marker-end: url(#arrow); fill: none;'/>
+  <g><title>(enc (enc s b (invk a)) b)</title>
+   <circle cx='39.960' cy='114.960' r='6.000'/></g>
+  <g><title>((d d) (s s) (a a) (b b))</title>
+   <text x='139.920' y='77.460' style='text-anchor: middle;'>resp</text>
+   </g>
+  <g><title>((d d) (s s) (a a) (b b))</title>
+   <text x='39.960' y='77.460' style='text-anchor: middle;'>init</text>
+   </g>
+  <text
+   x='89.940' y='39.960'
+   style='text-anchor: middle;'>blanchet-corrected 21 (realized)</text>
+  </svg></div>
+
+<pre>(defskeleton blanchet-corrected
+  (vars (d data) (s skey) (a b akey))
+  (defstrand init 2 (d d) (s s) (a a) (b b))
+  (defstrand resp 2 (d d) (s s) (a a) (b b))
+  (precedes ((0 0) (1 0)) ((1 1) (0 1)))
+  (non-orig (invk a))
+  (uniq-orig d s)
+  (operation encryption-test (displaced 2 0 init 1) (enc s b-0 (invk a))
+    (1 0))
+  (label 21)
+  (parent 20)
+  (unrealized)
+  (shape)
+  (maps ((0 1) ((a a) (b b) (s s) (d d) (b-0 b))))
+  (origs (s (0 0)) (d (1 1))))</pre>
+
+</body>
+</html>

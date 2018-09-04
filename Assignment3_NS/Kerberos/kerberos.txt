@@ -1,0 +1,647 @@
+(comment "CPSA 3.4.1")
+(comment "All input read from Assignment.scm")
+
+(defprotocol kerberos basic
+  (defrole client
+    (vars (c as t name) (k ak skey) (n1 n2 crtc crtas tgt data)
+      (tc tas text))
+    (trace (send (cat crtc c t (enc tc n2 (privk c)) n1))
+      (recv
+        (cat c tgt (enc crtas (enc k n2 (privk as)) (pubk c))
+          (enc t ak tas n1 k)))))
+  (defrole kas_as
+    (vars (c as t name) (k ak skey) (n1 n2 crtc crtas tgt data)
+      (tc tas text))
+    (trace (recv (cat crtc c t (enc tc n2 (privk c)) n1))
+      (send
+        (cat c tgt (enc crtas (enc k n2 (privk as)) (pubk c))
+          (enc t ak tas n1 k))))))
+
+(defskeleton kerberos
+  (vars (tc tas text) (n1 n2 crtc crtas tgt data) (c as t name)
+    (k ak skey))
+  (defstrand client 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))
+  (non-orig (privk c) (privk as))
+  (uniq-orig n1 n2)
+  (traces
+    ((send (cat crtc c t (enc tc n2 (privk c)) n1))
+      (recv
+        (cat c tgt (enc crtas (enc k n2 (privk as)) (pubk c))
+          (enc t ak tas n1 k)))))
+  (label 0)
+  (unrealized (0 1))
+  (origs (n1 (0 0)) (n2 (0 0)))
+  (comment "1 in cohort - 1 not yet seen"))
+
+(defskeleton kerberos
+  (vars (tc tas tc-0 tas-0 text)
+    (n1 n2 crtc crtas tgt n1-0 crtc-0 crtas-0 tgt-0 data)
+    (c as t c-0 t-0 name) (k ak ak-0 skey))
+  (defstrand client 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))
+  (defstrand kas_as 2 (tc tc-0) (tas tas-0) (n1 n1-0) (n2 n2)
+    (crtc crtc-0) (crtas crtas-0) (tgt tgt-0) (c c-0) (as as) (t t-0)
+    (k k) (ak ak-0))
+  (precedes ((0 0) (1 0)) ((1 1) (0 1)))
+  (non-orig (privk c) (privk as))
+  (uniq-orig n1 n2)
+  (operation encryption-test (added-strand kas_as 2)
+    (enc k n2 (privk as)) (0 1))
+  (traces
+    ((send (cat crtc c t (enc tc n2 (privk c)) n1))
+      (recv
+        (cat c tgt (enc crtas (enc k n2 (privk as)) (pubk c))
+          (enc t ak tas n1 k))))
+    ((recv (cat crtc-0 c-0 t-0 (enc tc-0 n2 (privk c-0)) n1-0))
+      (send
+        (cat c-0 tgt-0 (enc crtas-0 (enc k n2 (privk as)) (pubk c-0))
+          (enc t-0 ak-0 tas-0 n1-0 k)))))
+  (label 1)
+  (parent 0)
+  (unrealized)
+  (shape)
+  (maps
+    ((0)
+      ((c c) (as as) (t t) (k k) (ak ak) (n1 n1) (n2 n2) (crtc crtc)
+        (crtas crtas) (tgt tgt) (tc tc) (tas tas))))
+  (origs (n1 (0 0)) (n2 (0 0))))
+
+(comment "Nothing left to do")
+
+(defprotocol kerberos basic
+  (defrole client
+    (vars (c as t name) (k ak skey) (n1 n2 crtc crtas tgt data)
+      (tc tas text))
+    (trace (send (cat crtc c t (enc tc n2 (privk c)) n1))
+      (recv
+        (cat c tgt (enc crtas (enc k n2 (privk as)) (pubk c))
+          (enc t ak tas n1 k)))))
+  (defrole kas_as
+    (vars (c as t name) (k ak skey) (n1 n2 crtc crtas tgt data)
+      (tc tas text))
+    (trace (recv (cat crtc c t (enc tc n2 (privk c)) n1))
+      (send
+        (cat c tgt (enc crtas (enc k n2 (privk as)) (pubk c))
+          (enc t ak tas n1 k))))))
+
+(defskeleton kerberos
+  (vars (tc tas text) (n1 n2 crtc crtas tgt data) (c as t name)
+    (k ak skey))
+  (defstrand kas_as 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))
+  (non-orig (privk c) (privk as))
+  (uniq-orig k ak)
+  (traces
+    ((recv (cat crtc c t (enc tc n2 (privk c)) n1))
+      (send
+        (cat c tgt (enc crtas (enc k n2 (privk as)) (pubk c))
+          (enc t ak tas n1 k)))))
+  (label 2)
+  (unrealized (0 0))
+  (origs (k (0 1)) (ak (0 1)))
+  (comment "1 in cohort - 1 not yet seen"))
+
+(defskeleton kerberos
+  (vars (tc tas text) (n1 n2 crtc crtas tgt n1-0 crtc-0 data)
+    (c as t t-0 name) (k ak skey))
+  (defstrand kas_as 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))
+  (defstrand client 1 (tc tc) (n1 n1-0) (n2 n2) (crtc crtc-0) (c c)
+    (t t-0))
+  (precedes ((1 0) (0 0)))
+  (non-orig (privk c) (privk as))
+  (uniq-orig k ak)
+  (operation encryption-test (added-strand client 1)
+    (enc tc n2 (privk c)) (0 0))
+  (traces
+    ((recv (cat crtc c t (enc tc n2 (privk c)) n1))
+      (send
+        (cat c tgt (enc crtas (enc k n2 (privk as)) (pubk c))
+          (enc t ak tas n1 k))))
+    ((send (cat crtc-0 c t-0 (enc tc n2 (privk c)) n1-0))))
+  (label 3)
+  (parent 2)
+  (unrealized)
+  (shape)
+  (maps
+    ((0)
+      ((c c) (as as) (t t) (k k) (ak ak) (n1 n1) (n2 n2) (crtc crtc)
+        (crtas crtas) (tgt tgt) (tc tc) (tas tas))))
+  (origs (k (0 1)) (ak (0 1))))
+
+(comment "Nothing left to do")
+
+(defprotocol kerberos basic
+  (defrole client
+    (vars (c as t name) (k ak skey) (n1 n2 crtc crtas tgt data)
+      (tc tas text))
+    (trace (send (cat crtc c t (enc tc n2 (privk c)) n1))
+      (recv
+        (cat c tgt (enc crtas (enc k n2 (privk as)) (pubk c))
+          (enc t ak tas n1 k)))))
+  (defrole kas_as
+    (vars (c as t name) (k ak skey) (n1 n2 crtc crtas tgt data)
+      (tc tas text))
+    (trace (recv (cat crtc c t (enc tc n2 (privk c)) n1))
+      (send
+        (cat c tgt (enc crtas (enc k n2 (privk as)) (pubk c))
+          (enc t ak tas n1 k))))))
+
+(defskeleton kerberos
+  (vars (tc tas text) (n1 n2 crtc crtas tgt data) (c as t name)
+    (k ak skey))
+  (defstrand client 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))
+  (deflistener k)
+  (non-orig (privk c) (privk as))
+  (uniq-orig n1 n2)
+  (traces
+    ((send (cat crtc c t (enc tc n2 (privk c)) n1))
+      (recv
+        (cat c tgt (enc crtas (enc k n2 (privk as)) (pubk c))
+          (enc t ak tas n1 k)))) ((recv k) (send k)))
+  (label 4)
+  (unrealized (0 1))
+  (origs (n1 (0 0)) (n2 (0 0)))
+  (comment "1 in cohort - 1 not yet seen"))
+
+(defskeleton kerberos
+  (vars (tc tas tc-0 tas-0 text)
+    (n1 n2 crtc crtas tgt n1-0 crtc-0 crtas-0 tgt-0 data)
+    (c as t c-0 t-0 name) (k ak ak-0 skey))
+  (defstrand client 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))
+  (deflistener k)
+  (defstrand kas_as 2 (tc tc-0) (tas tas-0) (n1 n1-0) (n2 n2)
+    (crtc crtc-0) (crtas crtas-0) (tgt tgt-0) (c c-0) (as as) (t t-0)
+    (k k) (ak ak-0))
+  (precedes ((0 0) (2 0)) ((2 1) (0 1)))
+  (non-orig (privk c) (privk as))
+  (uniq-orig n1 n2)
+  (operation encryption-test (added-strand kas_as 2)
+    (enc k n2 (privk as)) (0 1))
+  (traces
+    ((send (cat crtc c t (enc tc n2 (privk c)) n1))
+      (recv
+        (cat c tgt (enc crtas (enc k n2 (privk as)) (pubk c))
+          (enc t ak tas n1 k)))) ((recv k) (send k))
+    ((recv (cat crtc-0 c-0 t-0 (enc tc-0 n2 (privk c-0)) n1-0))
+      (send
+        (cat c-0 tgt-0 (enc crtas-0 (enc k n2 (privk as)) (pubk c-0))
+          (enc t-0 ak-0 tas-0 n1-0 k)))))
+  (label 5)
+  (parent 4)
+  (unrealized)
+  (shape)
+  (maps
+    ((0 1)
+      ((c c) (as as) (t t) (k k) (ak ak) (n1 n1) (n2 n2) (crtc crtc)
+        (crtas crtas) (tgt tgt) (tc tc) (tas tas))))
+  (origs (n1 (0 0)) (n2 (0 0))))
+
+(comment "Nothing left to do")
+
+(defprotocol kerberos basic
+  (defrole client
+    (vars (c as t name) (k ak skey) (n1 n2 crtc crtas tgt data)
+      (tc tas text))
+    (trace (send (cat crtc c t (enc tc n2 (privk c)) n1))
+      (recv
+        (cat c tgt (enc crtas (enc k n2 (privk as)) (pubk c))
+          (enc t ak tas n1 k)))))
+  (defrole kas_as
+    (vars (c as t name) (k ak skey) (n1 n2 crtc crtas tgt data)
+      (tc tas text))
+    (trace (recv (cat crtc c t (enc tc n2 (privk c)) n1))
+      (send
+        (cat c tgt (enc crtas (enc k n2 (privk as)) (pubk c))
+          (enc t ak tas n1 k))))))
+
+(defskeleton kerberos
+  (vars (tc tas text) (n1 n2 crtc crtas tgt data) (c as t c-0 name)
+    (k ak ak-0 skey))
+  (defstrand client 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak-0))
+  (defstrand kas_as 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c-0) (as as) (t t) (k k) (ak ak))
+  (non-orig (privk as))
+  (uniq-orig n1 n2 k ak)
+  (traces
+    ((send (cat crtc c t (enc tc n2 (privk c)) n1))
+      (recv
+        (cat c tgt (enc crtas (enc k n2 (privk as)) (pubk c))
+          (enc t ak-0 tas n1 k))))
+    ((recv (cat crtc c-0 t (enc tc n2 (privk c-0)) n1))
+      (send
+        (cat c-0 tgt (enc crtas (enc k n2 (privk as)) (pubk c-0))
+          (enc t ak tas n1 k)))))
+  (label 6)
+  (unrealized (0 1) (1 0))
+  (preskeleton)
+  (comment "Not a skeleton"))
+
+(defskeleton kerberos
+  (vars (tc tas text) (n1 n2 crtc crtas tgt data) (c as t c-0 name)
+    (k ak ak-0 skey))
+  (defstrand client 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak-0))
+  (defstrand kas_as 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c-0) (as as) (t t) (k k) (ak ak))
+  (precedes ((0 0) (1 0)) ((1 1) (0 1)))
+  (non-orig (privk as))
+  (uniq-orig n1 n2 k ak)
+  (traces
+    ((send (cat crtc c t (enc tc n2 (privk c)) n1))
+      (recv
+        (cat c tgt (enc crtas (enc k n2 (privk as)) (pubk c))
+          (enc t ak-0 tas n1 k))))
+    ((recv (cat crtc c-0 t (enc tc n2 (privk c-0)) n1))
+      (send
+        (cat c-0 tgt (enc crtas (enc k n2 (privk as)) (pubk c-0))
+          (enc t ak tas n1 k)))))
+  (label 7)
+  (parent 6)
+  (unrealized)
+  (shape)
+  (maps
+    ((0 1)
+      ((c c) (as as) (t t) (k k) (ak ak) (n1 n1) (n2 n2) (crtc crtc)
+        (crtas crtas) (tgt tgt) (tc tc) (tas tas) (ak-0 ak-0)
+        (c-0 c-0))))
+  (origs (k (1 1)) (ak (1 1)) (n1 (0 0)) (n2 (0 0))))
+
+(comment "Nothing left to do")
+
+(defprotocol kerberos_corrected basic
+  (defrole client
+    (vars (c as t name) (k ak skey) (n1 n2 crtc crtas tgt data)
+      (tc tas text))
+    (trace (send (cat c (enc crtc t as tc n2 n1 (privk c))))
+      (recv
+        (enc
+          (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as))
+          (pubk c)))))
+  (defrole kas_as
+    (vars (c as t name) (k ak skey) (n1 n2 crtc crtas tgt data)
+      (tc tas text))
+    (trace (recv (cat c (enc crtc t as tc n2 n1 (privk c))))
+      (send
+        (enc
+          (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as))
+          (pubk c))))
+    (uniq-orig k)))
+
+(defskeleton kerberos_corrected
+  (vars (tc tas text) (n1 n2 crtc crtas tgt data) (c as t name)
+    (k ak skey))
+  (defstrand client 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))
+  (non-orig (privk c) (privk as))
+  (uniq-orig n1 n2)
+  (traces
+    ((send (cat c (enc crtc t as tc n2 n1 (privk c))))
+      (recv
+        (enc
+          (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as))
+          (pubk c)))))
+  (label 8)
+  (unrealized (0 1))
+  (origs (n1 (0 0)) (n2 (0 0)))
+  (comment "1 in cohort - 1 not yet seen"))
+
+(defskeleton kerberos_corrected
+  (vars (tc tas tc-0 text) (n1 n2 crtc crtas tgt data) (c as t name)
+    (k ak skey))
+  (defstrand client 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))
+  (defstrand kas_as 2 (tc tc-0) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))
+  (precedes ((0 0) (1 0)) ((1 1) (0 1)))
+  (non-orig (privk c) (privk as))
+  (uniq-orig n1 n2 k)
+  (operation encryption-test (added-strand kas_as 2)
+    (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as)) (0 1))
+  (traces
+    ((send (cat c (enc crtc t as tc n2 n1 (privk c))))
+      (recv
+        (enc
+          (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as))
+          (pubk c))))
+    ((recv (cat c (enc crtc t as tc-0 n2 n1 (privk c))))
+      (send
+        (enc
+          (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as))
+          (pubk c)))))
+  (label 9)
+  (parent 8)
+  (unrealized (1 0))
+  (comment "1 in cohort - 1 not yet seen"))
+
+(defskeleton kerberos_corrected
+  (vars (tc tas text) (n1 n2 crtc crtas tgt data) (c as t name)
+    (k ak skey))
+  (defstrand client 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))
+  (defstrand kas_as 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))
+  (precedes ((0 0) (1 0)) ((1 1) (0 1)))
+  (non-orig (privk c) (privk as))
+  (uniq-orig n1 n2 k)
+  (operation encryption-test (displaced 2 0 client 1)
+    (enc crtc t as tc-0 n2 n1 (privk c)) (1 0))
+  (traces
+    ((send (cat c (enc crtc t as tc n2 n1 (privk c))))
+      (recv
+        (enc
+          (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as))
+          (pubk c))))
+    ((recv (cat c (enc crtc t as tc n2 n1 (privk c))))
+      (send
+        (enc
+          (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as))
+          (pubk c)))))
+  (label 10)
+  (parent 9)
+  (unrealized)
+  (shape)
+  (maps
+    ((0)
+      ((c c) (as as) (t t) (k k) (ak ak) (n1 n1) (n2 n2) (crtc crtc)
+        (crtas crtas) (tgt tgt) (tc tc) (tas tas))))
+  (origs (k (1 1)) (n1 (0 0)) (n2 (0 0))))
+
+(comment "Nothing left to do")
+
+(defprotocol kerberos_corrected basic
+  (defrole client
+    (vars (c as t name) (k ak skey) (n1 n2 crtc crtas tgt data)
+      (tc tas text))
+    (trace (send (cat c (enc crtc t as tc n2 n1 (privk c))))
+      (recv
+        (enc
+          (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as))
+          (pubk c)))))
+  (defrole kas_as
+    (vars (c as t name) (k ak skey) (n1 n2 crtc crtas tgt data)
+      (tc tas text))
+    (trace (recv (cat c (enc crtc t as tc n2 n1 (privk c))))
+      (send
+        (enc
+          (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as))
+          (pubk c))))
+    (uniq-orig k)))
+
+(defskeleton kerberos_corrected
+  (vars (tc tas text) (n1 n2 crtc crtas tgt data) (c as t name)
+    (k ak skey))
+  (defstrand kas_as 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))
+  (non-orig (privk c) (privk as))
+  (uniq-orig k ak)
+  (traces
+    ((recv (cat c (enc crtc t as tc n2 n1 (privk c))))
+      (send
+        (enc
+          (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as))
+          (pubk c)))))
+  (label 11)
+  (unrealized (0 0))
+  (origs (k (0 1)) (ak (0 1)))
+  (comment "1 in cohort - 1 not yet seen"))
+
+(defskeleton kerberos_corrected
+  (vars (tc tas text) (n1 n2 crtc crtas tgt data) (c as t name)
+    (k ak skey))
+  (defstrand kas_as 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))
+  (defstrand client 1 (tc tc) (n1 n1) (n2 n2) (crtc crtc) (c c) (as as)
+    (t t))
+  (precedes ((1 0) (0 0)))
+  (non-orig (privk c) (privk as))
+  (uniq-orig k ak)
+  (operation encryption-test (added-strand client 1)
+    (enc crtc t as tc n2 n1 (privk c)) (0 0))
+  (traces
+    ((recv (cat c (enc crtc t as tc n2 n1 (privk c))))
+      (send
+        (enc
+          (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as))
+          (pubk c))))
+    ((send (cat c (enc crtc t as tc n2 n1 (privk c))))))
+  (label 12)
+  (parent 11)
+  (unrealized)
+  (shape)
+  (maps
+    ((0)
+      ((c c) (as as) (t t) (k k) (ak ak) (n1 n1) (n2 n2) (crtc crtc)
+        (crtas crtas) (tgt tgt) (tc tc) (tas tas))))
+  (origs (k (0 1)) (ak (0 1))))
+
+(comment "Nothing left to do")
+
+(defprotocol kerberos_corrected basic
+  (defrole client
+    (vars (c as t name) (k ak skey) (n1 n2 crtc crtas tgt data)
+      (tc tas text))
+    (trace (send (cat c (enc crtc t as tc n2 n1 (privk c))))
+      (recv
+        (enc
+          (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as))
+          (pubk c)))))
+  (defrole kas_as
+    (vars (c as t name) (k ak skey) (n1 n2 crtc crtas tgt data)
+      (tc tas text))
+    (trace (recv (cat c (enc crtc t as tc n2 n1 (privk c))))
+      (send
+        (enc
+          (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as))
+          (pubk c))))
+    (uniq-orig k)))
+
+(defskeleton kerberos_corrected
+  (vars (tc tas text) (n1 n2 crtc crtas tgt data) (c as t name)
+    (k ak skey))
+  (defstrand client 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))
+  (deflistener k)
+  (non-orig (privk c) (privk as))
+  (uniq-orig n1 n2)
+  (traces
+    ((send (cat c (enc crtc t as tc n2 n1 (privk c))))
+      (recv
+        (enc
+          (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as))
+          (pubk c)))) ((recv k) (send k)))
+  (label 13)
+  (unrealized (0 1))
+  (origs (n1 (0 0)) (n2 (0 0)))
+  (comment "1 in cohort - 1 not yet seen"))
+
+(defskeleton kerberos_corrected
+  (vars (tc tas tc-0 text) (n1 n2 crtc crtas tgt data) (c as t name)
+    (k ak skey))
+  (defstrand client 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))
+  (deflistener k)
+  (defstrand kas_as 2 (tc tc-0) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))
+  (precedes ((0 0) (2 0)) ((2 1) (0 1)) ((2 1) (1 0)))
+  (non-orig (privk c) (privk as))
+  (uniq-orig n1 n2 k)
+  (operation encryption-test (added-strand kas_as 2)
+    (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as)) (0 1))
+  (traces
+    ((send (cat c (enc crtc t as tc n2 n1 (privk c))))
+      (recv
+        (enc
+          (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as))
+          (pubk c)))) ((recv k) (send k))
+    ((recv (cat c (enc crtc t as tc-0 n2 n1 (privk c))))
+      (send
+        (enc
+          (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as))
+          (pubk c)))))
+  (label 14)
+  (parent 13)
+  (unrealized (1 0) (2 0))
+  (comment "1 in cohort - 1 not yet seen"))
+
+(defskeleton kerberos_corrected
+  (vars (tc tas text) (n1 n2 crtc crtas tgt data) (c as t name)
+    (k ak skey))
+  (defstrand client 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))
+  (deflistener k)
+  (defstrand kas_as 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))
+  (precedes ((0 0) (2 0)) ((2 1) (0 1)) ((2 1) (1 0)))
+  (non-orig (privk c) (privk as))
+  (uniq-orig n1 n2 k)
+  (operation encryption-test (displaced 3 0 client 1)
+    (enc crtc t as tc-0 n2 n1 (privk c)) (2 0))
+  (traces
+    ((send (cat c (enc crtc t as tc n2 n1 (privk c))))
+      (recv
+        (enc
+          (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as))
+          (pubk c)))) ((recv k) (send k))
+    ((recv (cat c (enc crtc t as tc n2 n1 (privk c))))
+      (send
+        (enc
+          (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as))
+          (pubk c)))))
+  (label 15)
+  (parent 14)
+  (unrealized (1 0))
+  (comment "empty cohort"))
+
+(comment "Nothing left to do")
+
+(defprotocol kerberos_corrected basic
+  (defrole client
+    (vars (c as t name) (k ak skey) (n1 n2 crtc crtas tgt data)
+      (tc tas text))
+    (trace (send (cat c (enc crtc t as tc n2 n1 (privk c))))
+      (recv
+        (enc
+          (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as))
+          (pubk c)))))
+  (defrole kas_as
+    (vars (c as t name) (k ak skey) (n1 n2 crtc crtas tgt data)
+      (tc tas text))
+    (trace (recv (cat c (enc crtc t as tc n2 n1 (privk c))))
+      (send
+        (enc
+          (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as))
+          (pubk c))))
+    (uniq-orig k)))
+
+(defskeleton kerberos_corrected
+  (vars (tc tas text) (n1 n2 crtc crtas tgt data) (c as t c-0 name)
+    (k ak ak-0 skey))
+  (defstrand client 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak-0))
+  (defstrand kas_as 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c-0) (as as) (t t) (k k) (ak ak))
+  (non-orig (privk as))
+  (uniq-orig n1 n2 k ak)
+  (traces
+    ((send (cat c (enc crtc t as tc n2 n1 (privk c))))
+      (recv
+        (enc
+          (enc tgt crtas k c crtc n1 n2 (enc t ak-0 tas n1 k)
+            (privk as)) (pubk c))))
+    ((recv (cat c-0 (enc crtc t as tc n2 n1 (privk c-0))))
+      (send
+        (enc
+          (enc tgt crtas k c-0 crtc n1 n2 (enc t ak tas n1 k)
+            (privk as)) (pubk c-0)))))
+  (label 16)
+  (unrealized (0 1) (1 0))
+  (preskeleton)
+  (comment "Not a skeleton"))
+
+(defskeleton kerberos_corrected
+  (vars (tc tas text) (n1 n2 crtc crtas tgt data) (c as t c-0 name)
+    (k ak ak-0 skey))
+  (defstrand client 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak-0))
+  (defstrand kas_as 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c-0) (as as) (t t) (k k) (ak ak))
+  (precedes ((0 0) (1 0)) ((1 1) (0 1)))
+  (non-orig (privk as))
+  (uniq-orig n1 n2 k ak)
+  (traces
+    ((send (cat c (enc crtc t as tc n2 n1 (privk c))))
+      (recv
+        (enc
+          (enc tgt crtas k c crtc n1 n2 (enc t ak-0 tas n1 k)
+            (privk as)) (pubk c))))
+    ((recv (cat c-0 (enc crtc t as tc n2 n1 (privk c-0))))
+      (send
+        (enc
+          (enc tgt crtas k c-0 crtc n1 n2 (enc t ak tas n1 k)
+            (privk as)) (pubk c-0)))))
+  (label 17)
+  (parent 16)
+  (unrealized (0 1))
+  (origs (k (1 1)) (ak (1 1)) (n1 (0 0)) (n2 (0 0)))
+  (comment "1 in cohort - 1 not yet seen"))
+
+(defskeleton kerberos_corrected
+  (vars (tc tas text) (n1 n2 crtc crtas tgt data) (as t c name)
+    (k ak skey))
+  (defstrand client 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))
+  (defstrand kas_as 2 (tc tc) (tas tas) (n1 n1) (n2 n2) (crtc crtc)
+    (crtas crtas) (tgt tgt) (c c) (as as) (t t) (k k) (ak ak))
+  (precedes ((0 0) (1 0)) ((1 1) (0 1)))
+  (non-orig (privk as))
+  (uniq-orig n1 n2 k ak)
+  (operation encryption-test (displaced 2 1 kas_as 2)
+    (enc tgt crtas k c-0 crtc n1 n2 (enc t ak-0 tas n1 k) (privk as))
+    (0 1))
+  (traces
+    ((send (cat c (enc crtc t as tc n2 n1 (privk c))))
+      (recv
+        (enc
+          (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as))
+          (pubk c))))
+    ((recv (cat c (enc crtc t as tc n2 n1 (privk c))))
+      (send
+        (enc
+          (enc tgt crtas k c crtc n1 n2 (enc t ak tas n1 k) (privk as))
+          (pubk c)))))
+  (label 18)
+  (parent 17)
+  (unrealized)
+  (shape)
+  (maps
+    ((0 1)
+      ((c c) (as as) (t t) (k k) (ak ak) (n1 n1) (n2 n2) (crtc crtc)
+        (crtas crtas) (tgt tgt) (tc tc) (tas tas) (ak-0 ak) (c-0 c))))
+  (origs (k (1 1)) (ak (1 1)) (n1 (0 0)) (n2 (0 0))))
+
+(comment "Nothing left to do")
